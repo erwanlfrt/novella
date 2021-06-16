@@ -7,8 +7,8 @@
   </head>
   <body>
     <div class="main">
-      <p id="title">Welcome</p>
-      <p id="logo">g</p>
+      <p id="title">Novella</p>
+      <p id="logo">logo super stylé ici</p>
       <form action="?action=check" method="post">
         <div>
             <input type="text" id="username" name="username" placeholder="Username">
