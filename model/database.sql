@@ -13,8 +13,7 @@ CREATE TABLE IF NOT EXISTS Competition(
 	theme VARCHAR2(100) NOT NULL,
 	incipit  VARCHAR2(200),
 	creationDate DATE NOT NULL,
-	deadline DATE NOT NULL,
-	CONSTRAINT ck_date CHECK (creationDate < deadline)
+	deadline DATE NOT NULL CHECK (creationDate < deadline)
 );
 
 
