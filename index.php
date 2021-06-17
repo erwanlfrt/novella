@@ -1,4 +1,13 @@
 <?php
+
+use model\Autoloader;
+
+define('DS', DIRECTORY_SEPARATOR);
+define('ROOT', dirname(__FILE__).DS);
+
+require_once 'model\autoloader.php';
+Autoloader::register();
+
     session_start();
     require('controller/controller.php');
 

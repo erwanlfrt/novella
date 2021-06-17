@@ -1,5 +1,10 @@
 <?php
 
+namespace model;
+
+use PDO;
+use PDOException;
+
 include __DIR__ . '\..\conf\conf.php';
 
 class DatabaseConnection
