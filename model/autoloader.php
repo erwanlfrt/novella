@@ -23,7 +23,7 @@ class Autoloader{
       $i = count($nameSpace) - 1;
       $nameSpace[$i] = ucfirst($nameSpace[$i]);      
       $class = implode('/', $nameSpace);
-      require ROOT . '\..\\' . $class.'.php';
+      require ROOT . '\\' . $class.'.php';
     }
 
 }

@@ -11,7 +11,7 @@ class DatabaseConnection
 {
     private static $instance;
 
-    public static function getInstance()
+    public static function getDatabaseConnection()
     {
 
         if(empty(self::$instance))
