@@ -8,7 +8,7 @@ session_start();
 require_once 'model/databaseConnection.php';
 use \model\DatabaseConnection;
 
-$db = DatabaseConnection:getInstance();
+$db = DatabaseConnection:getDatabaseConnection();
 
 /**
  * Add user to database

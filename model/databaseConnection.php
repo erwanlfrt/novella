@@ -2,36 +2,63 @@
 
 namespace model;
 
-use PDO;
-use PDOException;
-
 include __DIR__ . '\..\conf\conf.php';
 
-class DatabaseConnection
-{
+/**
+ * Database connection according to Singleton pattern.
+ */
+class DatabaseConnection{
     private static $instance;
+    private $dbConn;
 
-    public static function getDatabaseConnection()
-    {
+    private function __construct(){
 
-        if(empty(self::$instance))
-        {
+    }
 
-            try {
-                self::$instance = new PDO('mysql:host=localhost;dbname=novella', 'root', '5up3rM0tD3p4ss3');
-                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
-                self::$instance->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-                self::$instance->query('SET NAMES utf8');
-                self::$instance->query('SET CHARACTER SET utf8');
-
-            } catch(PDOException $error) {
-                echo $error->getMessage();
-            }
-
+    /**
+     * Get the only instance of database (singleton).
+     * @return DatabaseConnection
+     */
+    private static function getInstance(){
+        if(self::$instance == null){
+            $className = __CLASS__;
+            self::$instance = new $className;
         }
-
         return self::$instance;
     }
-}
 
+    /**
+     * Init the database connection.
+     * @return DatabaseConnection
+     */
+    private static function initConnection(){
+        $db = self::getInstance();
+
+        $db_username = BDD_USER;
+        $db_password = BDD_MDP;
+        $db_name     = BDD_BASE;
+        $db_host     = 'localhost';
+
+        $db->dbConn = new \mysqli($db_host, $db_username, $db_password, $db_name);
+        $db->dbConn->set_charset('utf8');
+        
+        return $db;
+    }
+
+    /**
+     * @return mysqli
+     */
+    public static function getDatabaseConnection(){
+        try{
+            $db = self::initConnection();
+            return $db->dbConn;
+        }
+        catch(\Exception $e){
+            echo "Unable to connect to database. ".$e->getMessage();
+            return null;
+        }
+    }
+
+
+}
 ?>
