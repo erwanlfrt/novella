@@ -7,11 +7,11 @@
   </head>
   <body>
     <div class="main">
-      <p id="title">Novella</p>
+      <h1 id="title">Novella</h1>
       <p id="logo">logo super stylé ici</p>
       <form action="?action=check" method="post">
         <div>
-            <input type="text" id="username" name="username" placeholder="Username">
+            <input type="text" id="email" name="email" placeholder="email">
         </div>
         <div>
             <input type="password" id="password" name="password" placeholder="Password">

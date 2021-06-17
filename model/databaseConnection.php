@@ -1,8 +1,8 @@
 <?php
 
-include __DIR__ . '\..\config\conf.php';
+include __DIR__ . '\..\conf\conf.php';
 
-class ConnectionBDD
+class DatabaseConnection
 {
     private static $instance;
 

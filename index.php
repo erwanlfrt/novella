@@ -9,6 +9,9 @@
         else if(strpos($_GET['action'],'resetPwd') !== false) {
             resetPwd();
         }
+        else if(strpos($_GET['action'],'check') !== false){
+          check();
+      }
     }else {
         login();
     }
