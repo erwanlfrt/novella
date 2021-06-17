@@ -8,13 +8,13 @@ session_start();
 require_once 'model/databaseConnection.php';
 use \model\DatabaseConnection;
 
-$db = DatabaseConnection:getDatabaseConnection();
+$db = DatabaseConnection::getDatabaseConnection();
 
 /**
  * Add user to database
  * @param db - database connection
  */
-function addUser($db) {/
+function addUser($db) {
 
   if(isset($_POST['email'])) {
     //avoid XSS attack
@@ -55,7 +55,7 @@ function addUser($db) {/
  * @param $db - database connection
  */
 function editUser($db) {
-  $mail = $_GET['email'] //get email through query string
+  $mail = $_GET['email']; //get email through query string
 
   if(isset($_POST['update'])) {
     //avoid XSS attack
@@ -63,7 +63,7 @@ function editUser($db) {
     $name = mysqli_real_escape_string($db, htmlspecialchars($_POST['name']));
     $firstname = mysqli_real_escape_string($db, htmlspecialchars($_POST['firstname']));
     if($name !== "" && $password !== "" && $firstname !== "") {
-      mysqli_query($db, "UPDATE Users SET name='$name', password=MD5('$password'), firstname='$firstname' WHERE mail='$email';");
+      mysqli_query($db, "UPDATE Users SET name='$name', password=MD5('$password'), firstname='$firstname' WHERE mail='$mail';");
       mysqli_close($db); // Close connection
       header("location: ?action=login");
     }
@@ -75,7 +75,7 @@ function editUser($db) {
  * @param db- database connection
  */
 function deleteUser($db) {
-  $email = mysqli_real_escape_string($db, hmtlspecialchars($_GET['email']));
+  $email = mysqli_real_escape_string($db, htmlspecialchars($_GET['email']));
 
   $checkExist = mysqli_query($db,"SELECT count(*) FROM User WHERE mail='$email';");
   $count = mysqli_fetch_array($checkExist)["count(*)"];
@@ -95,6 +95,5 @@ else if($_GET['action'] === "delete"){
 else{ //else we want to add
   addUser($db);
 }
-
 
 ?>
