@@ -1,5 +1,5 @@
 <?php 
-
+session_status() === PHP_SESSION_ACTIVE ?: session_start();
 /**
  * Load login webpage.
  */
@@ -18,4 +18,25 @@ function resetPwd() {
 function check() {
   require('model/authentication/check.php');
 }
+
+function register() {
+  require('model/authentication/signup.php');
+}
+
+function changePwd() {
+  require('model/authentication/resetPwd.php');
+}
+
+function home() {
+  require('view/home.php');
+}
+
+function showCompetition() {
+  require('view/showCompetition.php');
+}
+
+function participate() {
+  require('view/participate.php');
+}
+
 ?>

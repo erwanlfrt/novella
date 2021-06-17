@@ -8,9 +8,9 @@
     <div class="main">
       <p id="title">Reset your password </p>
 
-      <form action="?action=resetPwd" method="post">
+      <form action="?action=changePwd" method="post">
       <div>
-          <input type="text" id="username" name="username" placeholder="username">
+          <input type="text" id="email" name="email" placeholder="email">
       </div>
       <div>
           <input type="password" id="password" name="password" placeholder="password">

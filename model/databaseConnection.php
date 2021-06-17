@@ -1,6 +1,7 @@
 <?php
-
 namespace model;
+
+session_status() === PHP_SESSION_ACTIVE ?: session_start();
 
 include __DIR__ . '\..\conf\conf.php';
 

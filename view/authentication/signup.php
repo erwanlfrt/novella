@@ -7,9 +7,11 @@
       <h1 id="title">Register</h1>
     
       <form action="?action=register" method="POST">
-        <input type="text" name="username" placeholder="username"/><br />
+        <input type="text" name="email" placeholder="email"/><br />
         <input type="password" name="password" placeholder="password" /><br />
         <input type="password" name="password_confirm" placeholder="confirm password" /><br />
+        <input type="name" name="name" placeholder="name" /><br />
+        <input tyê="firstname" name="firstname" placeholder="firstname" /><br/>
         <input type="submit"  class="submit" value="Register" />
       </form>
       <div>
