@@ -155,8 +155,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`mail`, `password`, `name`, `firstname`) VALUES
-('test@gmail.com', 'toto', 'Nom', 'Prenom'),
-('test2@gmail.com', 'toto', 'Nom', 'Prenom');
+('test@gmail.com', 'f71dbe52628a3f83a77ab494817525c6', 'Nom', 'Prenom'),
+('test2@gmail.com', 'f71dbe52628a3f83a77ab494817525c6', 'Nom', 'Prenom');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

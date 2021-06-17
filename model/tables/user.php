@@ -40,7 +40,7 @@ function addUser($db) {
             $password = mysqli_real_escape_string($db, htmlspecialchars($_POST['password']));
             $name = mysqli_real_escape_string($db, htmlspecialchars($_POST['name']));
             $firstname = mysqli_real_escape_string($db, htmlspecialchars($_POST['firstname']));
-            $query = "INSERT INTO Users (mail, password, name, firstname) VALUES ('".$email."', MD5('".$password."', '".$name."', '".$firstname."');";
+            $query = "INSERT INTO Users (mail, password, name, firstname) VALUES ('".$email."', MD5('".$password."'), '".$name."', '".$firstname."');";
             $execRequest = mysqli_query($db, $queryCheck);
             header('Location: ?action=login');
           }

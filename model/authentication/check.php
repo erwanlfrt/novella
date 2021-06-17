@@ -12,7 +12,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){ //check if we have a us
     //prevent XSS 
     $email = mysqli_real_escape_string($db,htmlspecialchars($_POST['email'])); 
     $password = mysqli_real_escape_string($db,htmlspecialchars($_POST['password']));
-
+    $password_hash = md5($password);
 
    //prevent CSRF with a token.
    //  $token = uniqid(rand(), true); //generate a token
@@ -20,7 +20,7 @@ if(isset($_POST['email']) && isset($_POST['password'])){ //check if we have a us
    //  $_SESSION['token_time'] = time(); //add the token's date of creation.
 
    if($email !== "" && $password !== ""){ //If email and password are not empty
-        $request = "SELECT mail, name, firstname FROM Users where mail= '".$email."' and password = '".$password."' ";
+        $request = "SELECT mail, name, firstname FROM Users where mail= '".$email."' and password = '".$password_hash."' ";
         $exec_request = mysqli_query($db,$request); //execution of role request.
         $result = mysqli_fetch_array($exec_request); //putting result into array
         //$checkMail = $result['mail']; 
