@@ -1,7 +1,6 @@
 <?php
 
 use \model\tables\Competition;
-use \model\DatabaseConnection;
 
 $competition = new Competition;
 $competition->addCompetition();

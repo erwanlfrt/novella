@@ -122,10 +122,11 @@ class User {
    * list all users
    */
   public function listUsers() {
-    $query = "SELECT name, firstname FROM Users";
+    $query = "SELECT name, firstname, mail FROM Users";
     $exec = mysqli_query($this->db, $query);
     return $exec;
  }
+ 
 
 }
 

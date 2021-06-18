@@ -51,6 +51,16 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'addCompetition') !== false) {
     addCompetition();
   }
+  else if (strpos($_GET['action'], 'manageUser') !== false) {
+    manageUser();
+  }
+  else if (strpos($_GET['action'], 'setCompetitionJurors') !== false) {
+    setCompetitionJurors();
+  }
+
+  
+
+
 
 }else {
     login();

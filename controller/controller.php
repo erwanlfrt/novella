@@ -55,4 +55,12 @@ function addCompetition() {
   require('model/organisateur/addCompetition.php');
 }
 
+function manageUser() {
+  require('view/organisateur/manageUser.php');
+}
+
+function setCompetitionJurors() {
+  require('model/organisateur/setCompetitionJurors.php');
+}
+
 ?>
