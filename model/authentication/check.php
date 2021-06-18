@@ -20,13 +20,15 @@ if(isset($_POST['email']) && isset($_POST['password'])){ //check if we have a us
    //  $_SESSION['token_time'] = time(); //add the token's date of creation.
 
    if($email !== "" && $password !== ""){ //If email and password are not empty
-        $request = "SELECT mail, name, firstname FROM Users where mail= '".$email."' and password = '".$password_hash."' ";
+        $request = "SELECT mail, name, firstname, admin FROM Users where mail= '".$email."' and password = '".$password_hash."' ";
         $exec_request = mysqli_query($db,$request); //execution of role request.
         $result = mysqli_fetch_array($exec_request); //putting result into array
         //$checkMail = $result['mail']; 
         if(!is_null($result)){ //check if mail and password are correct
             $name = $result['name'];
             $firstname = $result['firstname'];
+            $admin = $result['admin'];
+            $_SESSION['admin'] = $admin;
             $_SESSION['email'] = $email; //adding username to session
             $_SESSION['firstname'] = $firstname;
             $_SESSION['name'] = $name;
