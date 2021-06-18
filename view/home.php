@@ -23,7 +23,6 @@ $listCompetition = $competition->listAvailableCompetitions();
         while($data = mysqli_fetch_array($listCompetition)){
           ?><li><a href="?action=showCompetition&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a></li><?php
          }
-        // echo $listCompetition;
         ?>
       </ul>
     </div>

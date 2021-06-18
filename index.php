@@ -39,6 +39,9 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'participate') !== false) {
     participate();
   }
+  else if (strpos($_GET['action'], 'addNovella') !== false) {
+    insertNovella();
+  }
 
 }else {
     login();

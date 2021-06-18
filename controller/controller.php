@@ -39,4 +39,8 @@ function participate() {
   require('view/participate.php');
 }
 
+function insertNovella() {
+  require('model/addNovella.php');
+}
+
 ?>
