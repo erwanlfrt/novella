@@ -43,4 +43,16 @@ function insertNovella() {
   require('model/addNovella.php');
 }
 
+function pageOrganisateur() {
+  require('view/organisateur/pageOrganisateur.php');
+}
+
+function newCompetition() {
+  require('view/organisateur/newCompetition.php');
+}
+
+function addCompetition() {
+  require('model/organisateur/addCompetition.php');
+}
+
 ?>

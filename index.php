@@ -42,6 +42,15 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'addNovella') !== false) {
     insertNovella();
   }
+  else if (strpos($_GET['action'], 'pageOrganisateur') !== false) {
+    pageOrganisateur();
+  }
+  else if (strpos($_GET['action'], 'newCompetition') !== false) {
+    newCompetition();
+  }
+  else if (strpos($_GET['action'], 'addCompetition') !== false) {
+    addCompetition();
+  }
 
 }else {
     login();

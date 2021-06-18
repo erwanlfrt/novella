@@ -16,7 +16,7 @@ $listCompetition = $competition->listAvailableCompetitions();
     <h1>Home</h1>
     <p>Bonjour <?php echo $_SESSION["firstname"]?></p>
     <p><?php if ($_SESSION['admin']) {
-      echo "Admin";
+      ?><a href="?action=pageOrganisateur">Espace organisateur</a><?php ;
     } ?></p>
     <a href="?action=myAccount"><p>Gérer mon compte</p></a>
     <div>
