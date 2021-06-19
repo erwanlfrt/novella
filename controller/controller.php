@@ -43,10 +43,8 @@ function insertNovella() {
   require('model/addNovella.php');
 }
 
-<<<<<<< HEAD
 function test() {
   require('view/test.php');
-=======
 function pageOrganisateur() {
   require('view/organisateur/pageOrganisateur.php');
 }
@@ -65,7 +63,6 @@ function manageUser() {
 
 function setCompetitionJurors() {
   require('model/organisateur/setCompetitionJurors.php');
->>>>>>> 96fbcb0c7ce04032726a3cfb156c49e71fc9ca9f
 }
 
 ?>
