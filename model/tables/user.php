@@ -118,6 +118,16 @@ class User {
     header("location: ?action=login");
   }
 
+  /**
+   * list all users
+   */
+  public function listUsers() {
+    $query = "SELECT name, firstname, mail FROM Users";
+    $exec = mysqli_query($this->db, $query);
+    return $exec;
+ }
+ 
+
 }
 
 

@@ -1,6 +1,5 @@
 <?php
 namespace model\tables;
-require_once 'model/databaseConnection.php';
 
 use \model\DatabaseConnection;
 
@@ -21,9 +20,10 @@ class Competition {
       $deadline =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['deadline']));
 
       if($theme !== "" && $incipit !== "" && $deadline !== "") {
-        $query = "INSERT INTO Competition (theme, incipit, creationDate, deadline) VALUES ('$theme', '$incipit', '$creationDate', curdate());";
+        $query = "INSERT INTO Competition (theme, incipit, creationDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$deadline');";
+        
         $execRequest = mysqli_query($this->db, $query);
-        header('Location: ?action=home');
+        header('Location: ?action=pageOrganisateur');
       }
     }
   }

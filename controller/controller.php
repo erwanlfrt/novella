@@ -43,8 +43,29 @@ function insertNovella() {
   require('model/addNovella.php');
 }
 
+<<<<<<< HEAD
 function test() {
   require('view/test.php');
+=======
+function pageOrganisateur() {
+  require('view/organisateur/pageOrganisateur.php');
+}
+
+function newCompetition() {
+  require('view/organisateur/newCompetition.php');
+}
+
+function addCompetition() {
+  require('model/organisateur/addCompetition.php');
+}
+
+function manageUser() {
+  require('view/organisateur/manageUser.php');
+}
+
+function setCompetitionJurors() {
+  require('model/organisateur/setCompetitionJurors.php');
+>>>>>>> 96fbcb0c7ce04032726a3cfb156c49e71fc9ca9f
 }
 
 ?>
