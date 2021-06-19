@@ -43,4 +43,8 @@ function insertNovella() {
   require('model/addNovella.php');
 }
 
+function test() {
+  require('view/test.php');
+}
+
 ?>

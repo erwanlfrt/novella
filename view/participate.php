@@ -12,6 +12,8 @@ $dataAccess = new Competition;
 if(isset($_GET['id'])) {
   $competition = $dataAccess->getCompetition($_GET['id']);
   $requiredWords = $requiredWordAccess->getRequiredWords($_GET['id']);
+  $requiredWords2 = $requiredWordAccess->getRequiredWords($_GET['id']);
+  
   $wordList = [];
 }
 
@@ -44,6 +46,30 @@ if(isset($_GET['id'])) {
     </form>
   </body>
   <script>
+
+    var conjugationArray= []; 
+    <?php 
+
+      while($datas = mysqli_fetch_array($requiredWords2)){
+        $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode=indicative&tense=perfect-tense';
+        ?>console.log("<?php echo $url ?>");<?php
+        
+        // using file() function to get content
+        $lines_array=file($url);
+        // turn array into one variable
+        $lines_string=implode('',$lines_array);
+
+        $json = json_decode($lines_string);
+
+        if(!(strcmp($json->error, "Unkown verb.") == 0)) {
+          foreach($json->conjugation as $conjugation) {
+            ?>conjugationArray.push("<?php echo $conjugation->verb ?>"); <?php
+          }
+        } 
+      }
+    ?>
+     console.log("conjugations = ",conjugationArray);
+
     document.getElementById("textArea").addEventListener("input", (event) => {
       var validateWords = [];
       document.getElementById("wordListView").childNodes.forEach(child => {
@@ -70,5 +96,7 @@ if(isset($_GET['id'])) {
         }
       })
     });
+
+    
   </script>
 </html>

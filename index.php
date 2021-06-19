@@ -43,6 +43,9 @@ if (isset($_GET['action'])) {
     insertNovella();
   }
 
+  else if (strpos($_GET['action'], 'test') !== false) {
+    test();
+  }
 }else {
     login();
 }
