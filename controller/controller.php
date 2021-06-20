@@ -45,6 +45,7 @@ function insertNovella() {
 
 function test() {
   require('view/test.php');
+}
 function pageOrganisateur() {
   require('view/organisateur/pageOrganisateur.php');
 }

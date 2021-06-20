@@ -27,8 +27,9 @@ if(isset($_GET['id'])) {
   <body>
     <h1>Concours: <?php echo $competition['theme']?></h1>
     <form style="display: flex; flex-direction: column; align-items: flex-start;" action="?action=addNovella&id=<?php echo $competition['id']?>" method="POST">
-      <input type="text" name="title" placeholder="titre">
-      <input type="file" name="file">
+      <input type="text" name="title" placeholder="titre" id="title">
+      <input type="file" name="file" id="filePicker">
+      <p id="fileMessage"></p>
       <div>
       <h3>mots requis: </h3>
       <ul id="wordListView">
@@ -41,37 +42,100 @@ if(isset($_GET['id'])) {
       </ul>
       </div>
       
-      <textarea id="textArea" rows="10" cols="150" name="text" placeholder="<?php echo $competition['incipit']?>..."></textarea>
+      <textarea id="textArea" rows="10" cols="150" name="text"><?php echo $competition['incipit']?> </textarea>
       <input id="submit" type="submit" value="submit" disabled="true">
     </form>
   </body>
   <script>
+    var wordLock = true;
+    var checkTitle = true;
+    document.getElementById("title").addEventListener("input", (event) => {
+      checkTitle = false
+      var theme =  "<?php echo $competition['theme']?>";
+      var title = document.getElementById("title");
+      if(title.value.toLocaleLowerCase().localeCompare(theme.toLocaleLowerCase()) === 0) {
+        title.style.borderColor = "red";
+        checkTitle = false;
+      }
+      else {
+        checkTitle = true;
+      }
+
+      if(title.value === "") {
+        document.getElementById("submit").disabled = true;
+      }
+      else if(!wordLock && checkTitle) {
+        document.getElementById("submit").disabled = false;
+      }
+      else {
+        document.getElementById("submit").disabled = true;
+      }
+    });
 
     var conjugationArray= []; 
+  </script>
     <?php 
-
       while($datas = mysqli_fetch_array($requiredWords2)){
-        $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode=indicative&tense=perfect-tense';
-        ?>console.log("<?php echo $url ?>");<?php
-        
-        // using file() function to get content
-        $lines_array=file($url);
-        // turn array into one variable
-        $lines_string=implode('',$lines_array);
+        $tenses = [
+          "infinitive" => array("infinitive-present"),
+          "indicative" => array("present", "imperfect", "future", "simple-past", "perfect-tense", "pluperfect", "anterior-past", "anterior-future"),
+          "conditional" => array("present", "conditional-past"),
+          "subjunctive" => array("present", "imperfect", "subjunctive-past", "subjunctive-pluperfect"),
+          "imperative" => array("imperative-present", "imperative-past"),
+          "participle" => array("present-participle", "past-participle")
+        ];
 
-        $json = json_decode($lines_string);
-
-        if(!(strcmp($json->error, "Unkown verb.") == 0)) {
-          foreach($json->conjugation as $conjugation) {
-            ?>conjugationArray.push("<?php echo $conjugation->verb ?>"); <?php
+        //check if infinitive exist, if not we avoid to check each tenses
+        $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode=infinitive&tense=infinitive-present';
+        $content = @file($url);
+        if($content != false) {
+          ?>
+          <script>
+             conjugationArray.push([]);
+          </script>
+          <?php
+          foreach(array_keys($tenses) as $mode) {
+            foreach($tenses[$mode] as $tense) {
+              $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode='.$mode.'&tense='.$tense;
+          
+              try {
+                // using file() function to get content
+                $lines_array= @file($url);
+                // turn array into one variable
+      
+                if($lines_array != false) {
+                  $lines_string=implode('',$lines_array);
+      
+                  $json = json_decode($lines_string);
+                }
+      
+                
+              }
+              catch (Exception $e) {
+              }
+              ?>
+              <script>
+              <?php 
+                if(isset($json)) {
+                  if(!(strcmp($json->error, "Unkown verb.") == 0)) {          
+                      foreach($json->conjugation as $conjugation) {
+                        ?>conjugationArray[conjugationArray.length-1].push("<?php echo $conjugation->verb ?>"); <?php
+                      }
+                  }
+                } 
+              ?></script> <?php
+            }
+            
           }
-        } 
-      }
+        }   
+    }
     ?>
-     console.log("conjugations = ",conjugationArray);
-
+    <script>
+    var verbs = [];
+    conjugationArray.forEach(verb => (verbs.push(verb[0])));
+    var validateWords = [];
     document.getElementById("textArea").addEventListener("input", (event) => {
-      var validateWords = [];
+      validateWords = [];
       document.getElementById("wordListView").childNodes.forEach(child => {
         var punctuationless = document.getElementById("textArea").value.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
         var finalString = punctuationless.replace(/\s{2,}/g," "); 
@@ -87,15 +151,78 @@ if(isset($_GET['id'])) {
           else {
             child.style.color = "red";
           }
-        }
-        if(validateWords.length === document.getElementsByClassName("requiredWord").length ) {
-          document.getElementById("submit").disabled = false;
-        }
-        else {
-          document.getElementById("submit").disabled = true;
+          //check verbs
+          if(verbs.includes(child.innerText) && child.style.color !== "green") {
+            conjugationArray.forEach(verb => {
+              if(verb[0] === child.innerText) {
+                //check if text area contains at least one of the conjugation
+                for(var i=0 ; i < verb.length ; i++) {
+                  if(finalString.includes(" "+verb[i]) || finalString.includes(verb[i]+" ")) {
+                    child.style.color = "green";
+                    validateWords.push(child.innerText);
+                    break;
+                  }
+                }
+              }
+            });
+          }
+
+          if(validateWords.length === document.getElementsByClassName("requiredWord").length && checkTitle) {
+            if(document.getElementById("title").value !== "") {
+              document.getElementById("submit").disabled = false;
+            }
+            wordLock = false;
+          }
+          else {
+            document.getElementById("submit").disabled = true;
+            wordLock = true;
+          }
+
         }
       })
     });
+    
+    var incipit = "<?php echo $competition['incipit'] ?>";
+    document.getElementById("textArea").addEventListener("keyup", event => {
+      if(document.getElementById("textArea").value.length <= incipit.length) {
+        document.getElementById("textArea").value = incipit;
+        
+      }
+    });
+
+    var filePicker = document.getElementById("filePicker");
+    filePicker.addEventListener("change", (event) => {
+      if(filePicker.files[0].name.split('.').pop() === "txt" ) {
+        var reader = new FileReader();
+        var res;
+        reader.addEventListener('load', (event) => {
+          if(event.target.result.substr(0,incipit.length).toLowerCase() === incipit.toLowerCase()) {
+            document.getElementById("textArea").value = event.target.result;
+          }
+          else {
+            document.getElementById("fileMessage").innerText = filePicker.files[0].name + ' ne commence pas par l\'incipit "' + incipit + '".';
+            document.getElementById("fileMessage").style.color = "red";
+          }
+          
+          triggerEvent(document.getElementById("textArea"), 'input');
+        });
+        reader.readAsText(filePicker.files[0])
+      }
+    });
+
+
+    function triggerEvent(el, type) {
+      if ('createEvent' in document) {
+          var e = document.createEvent('HTMLEvents');
+          e.initEvent(type, false, true);
+          el.dispatchEvent(e);
+      } else {
+          var e = document.createEventObject();
+          e.eventType = type;
+          el.fireEvent('on' + e.eventType, e);
+      }
+    }
+    
 
     
   </script>
