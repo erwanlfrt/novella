@@ -62,7 +62,7 @@ class Prejury {
    * list all existing competitions
    */
    public function listPrejurors() {
-      $query = "SELECT theme, mailUser, points FROM Prejury INNER JOIN Competition ON prejury.competition = competition.id ";
+      $query = "SELECT theme, name, firstname, mail, points FROM Prejury, Competition, Users WHERE Prejury.competition = Competition.id AND Prejury.mailUser = Users.mail ORDER BY Prejury.competition";
       $exec = mysqli_query($this->db, $query);
       return $exec;
    }

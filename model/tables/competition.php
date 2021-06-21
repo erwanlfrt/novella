@@ -93,6 +93,17 @@ class Competition {
       return mysqli_fetch_array($exec);
     }
 
+    public function listJurorsMails($id) {
+      $query = "SELECT mailUser FROM (SELECT * FROM Jury UNION SELECT * FROM Prejury) AS JurorsMails WHERE competition = '$id';";
+      $exec = mysqli_query($this->db,$query);
+      $mailArray = array();
+      while ($data = mysqli_fetch_array($exec)) {
+        $mailArray[] = $data[0];
+      } 
+
+      return implode(",", $mailArray);
+    }
+
 }
 
 

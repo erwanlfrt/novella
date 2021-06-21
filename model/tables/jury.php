@@ -64,7 +64,7 @@ class Jury {
    * list all existing competitions
    */
    public function listJurors() {
-      $query = "SELECT theme, mailUser, points FROM Jury INNER JOIN Competition ON jury.competition = competition.id ";
+      $query = "SELECT theme, name, firstname, mail, points FROM Jury, Competition, Users WHERE Jury.competition = Competition.id AND Jury.mailUser = Users.mail ORDER BY Jury.competition";
       $exec = mysqli_query($this->db, $query);
       return $exec;
    }

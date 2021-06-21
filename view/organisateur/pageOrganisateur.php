@@ -15,6 +15,7 @@ $listUsers = $user->listUsers();
 $listPrejurors = $prejury->listPrejurors();
 $listJurors = $jury->listJurors();
 $listCompetition = $competition->listCompetitions();
+$listMailByCompetition = $competition->listJurorsMails(3);
 
 ?>
 <html>
@@ -46,7 +47,7 @@ $listCompetition = $competition->listCompetitions();
           <td><?= $data[1] ?></td>
           <td><?= $data[2] ?></td>
           <td><a href="?action=manageUser&mail=<?= $data[2] ?>">Ajouter a un concour</a></td>
-          <td><a href="?action=delUser">Supprimer</a></a></td>
+          <td><a href="?action=delUser">Supprimer</a></a></td> <!-- updateUser&delete avec un test si admin-->
         </tr>
       <?php
       }
@@ -66,6 +67,7 @@ $listCompetition = $competition->listCompetitions();
       ?>
         <tr>
           <td><?= $data[0] ?></td>
+          <td><a href="mailto:<?= $competition->listJurorsMails($data[1]) ?>">mail</a></td>
         </tr>
       <?php
       }
@@ -88,11 +90,11 @@ $listCompetition = $competition->listCompetitions();
       while ($data = mysqli_fetch_array($listPrejurors)) {
       ?>
         <tr>
-          <td><?= $data[0] ?></td>
-          <td><?= $data[1] ?></td>
-          <td>r</td>
-          <td>r</td>
-          <td><?= $data[2] ?></td>
+          <td><?= $data['theme'] ?></td>
+          <td><?= $data['name'] ?></td>
+          <td><?= $data['firstname'] ?></td>
+          <td><?= $data['mail'] ?></td>
+          <td><?= $data['points'] ?></td>
           <td><a href="#">Supprimer</a></a></td>
         </tr>
       <?php
@@ -116,12 +118,13 @@ $listCompetition = $competition->listCompetitions();
       <?php
       while ($data = mysqli_fetch_array($listJurors)) {
       ?>
+
         <tr>
-          <td><?= $data[0] ?></td>
-          <td><?= $data[1] ?></td>
-          <td>r</td>
-          <td>r</td>
-          <td><?= $data[2] ?></td>
+          <td><?= $data['theme'] ?></td>
+          <td><?= $data['name'] ?></td>
+          <td><?= $data['firstname'] ?></td>
+          <td><?= $data['mail'] ?></td>
+          <td><?= $data['points'] ?></td>
           <td><a href="#">Supprimer</a></a></td>
         </tr>
       <?php
