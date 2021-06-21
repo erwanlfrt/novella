@@ -2,10 +2,21 @@
 session_status() === PHP_SESSION_ACTIVE ?: session_start();
 
 require_once 'model/tables/competition.php';
+require_once 'model/tables/jury.php';
+require_once 'model/tables/prejury.php';
 use \model\tables\Competition;
+use \model\tables\Jury;
+use \model\tables\Prejury;
 
 $competition = new Competition;
 $listCompetition = $competition->listAvailableCompetitions();
+
+$jury = new Jury;
+$listJuryCompetition = $jury->listCompetitions($_SESSION['email']);
+
+
+$prejury = new Prejury;
+$listPrejuryCompetition = $prejury->listCompetitions($_SESSION['email']);
 
 ?>
 <html>
@@ -29,5 +40,27 @@ $listCompetition = $competition->listAvailableCompetitions();
         ?>
       </ul>
     </div>
+
+    <div>
+      <h2>Jury</h2>
+      <?php      
+        while($data = mysqli_fetch_array($listJuryCompetition)){
+          ?><li><a href="?action=vote&id=<?php echo $data[0] ?>"><?php echo $data[1]; ?></a></li><?php
+         } 
+        ?>
+    </div>
+    
+    <?php if($listPrejuryCompetition !== false && $listPrejuryCompetition !== null) {
+    ?>        
+      <div>
+        <h2>Prejury</h2>
+        <?php      
+          
+          while($data = mysqli_fetch_array($listPrejuryCompetition)){
+            ?><li><a href="?action=vote&pre&id=<?php echo $data[0] ?>"><?php echo $data[1]; ?></a></li><?php
+          } 
+          ?>
+      </div>
+    <?php } ?>
   </body>
 </html>

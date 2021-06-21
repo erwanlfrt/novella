@@ -57,7 +57,25 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'setCompetitionJurors') !== false) {
     setCompetitionJurors();
   }
-
+  else if (strpos($_GET['action'], 'myAccount') !== false) {
+    myAccount();
+  }
+  else if (strpos($_GET['action'], 'updateUser') !== false) {
+    updateUser();
+  }
+  else if (strpos($_GET['action'], 'vote') !== false) {
+    vote();
+  }
+  else if (strpos($_GET['action'], 'readAndVote') !== false) {
+    readAndVote();
+  }
+  else if (strpos($_GET['action'], 'juryVoted') !== false) {
+    juryVoted();
+  }
+  else if (strpos($_GET['action'], 'verify') !== false) {
+    verify();
+  }
+  
   
 
 

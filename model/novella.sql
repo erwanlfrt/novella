@@ -81,6 +81,8 @@ CREATE TABLE IF NOT EXISTS `novella` (
   `competition` int(11) NOT NULL,
   `mailUser` varchar(50) NOT NULL,
   `anonymousID` varchar(50) NOT NULL,
+  `score` int(11) DEFAULT '0'NOT NULL,
+  `scorePrejury` int(11) DEFAULT '0'NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `fk_novella_user` (`mailUser`),
@@ -165,3 +167,16 @@ ALTER TABLE `users` ADD `admin` BOOLEAN NOT NULL AFTER `firstname`;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+DROP TABLE IF EXISTS `Vote`;
+CREATE TABLE IF NOT EXISTS `Vote` (
+  `competition` INT(11) NOT NULL,
+  `userMail` VARCHAR(50) NOT NULL,
+  `idNovella` bigint(20) UNSIGNED NOT NULL,
+  `points` INT(11) NOT NULL,
+  `prejury` BOOLEAN NOT NULL,
+  PRIMARY KEY (`competition`,`userMail`,`idNovella`, `prejury`),
+  KEY `fk_vote_jury` (`competition`,`userMail`),
+  KEY `fk_vote_novella` (`idNovella`)
+);

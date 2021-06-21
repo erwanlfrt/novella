@@ -7,6 +7,4 @@ use \model\tables\Novella;
 $novella = new Novella;
 
 $novella->addNovella();
-
-
 ?>

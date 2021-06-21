@@ -33,19 +33,47 @@ class Novella {
    * edit a novella
    * @param id - id of the novella
    */
-  public function editNovella($id) {
-    $queryCheck = "SELECT COUNT(*) FROM Novella WHERE id=$id";
+  public function editNovella($id, $title, $text, $verified, $competition, $mailUser, $anonymousID, $score, $isPrejury){
+    $safeID = mysqli_real_escape_string($this->db,htmlspecialchars($id));
+    $queryCheck = "SELECT COUNT(*) FROM Novella WHERE id=$safeID";
     $execCheck = mysqli_query($this->db, $queryCheck);
     $resultCheck = mysqli_fetch_array($execCheck);
 
-    if($resultCheck['count(*)'] !== 0) {
-      if(isset($_POST['title']) && isset($_POST['text'])) {
-        $title = mysqli_real_escape_string($this->db,htmlspecialchars($_POST['title']));
-        $text = mysqli_real_escape_string($this->db,htmlspecialchars($_POST['text']));
-  
-        $query = "UPDATE Novella SET title='$title', text='$text' WHERE id=$id";
-        $exec = mysqli_query($this->db, $query);
+    if($resultCheck['COUNT(*)'] !== 0) {
+      $safeTitle = mysqli_real_escape_string($this->db,htmlspecialchars($title));
+      $safeText = mysqli_real_escape_string($this->db,htmlspecialchars($text));
+      $safeVerified = mysqli_real_escape_string($this->db,htmlspecialchars($verified));
+      $safeCompetition = mysqli_real_escape_string($this->db,htmlspecialchars($competition));
+      $safeMailUser = mysqli_real_escape_string($this->db,htmlspecialchars($mailUser));
+      $safeAnonymousID = mysqli_real_escape_string($this->db,htmlspecialchars($anonymousID));
+      $safeScore = mysqli_real_escape_string($this->db,htmlspecialchars($score));
+      
+      if($isPrejury) {
+        $query = "UPDATE Novella SET title='$safeTitle', text='$safeText', verified=$safeVerified, competition=$safeCompetition, mailUser='$safeMailUser', anonymousID='$safeAnonymousID', scorePrejury=$safeScore  WHERE id=$safeID";
       }
+      else {
+        $query = "UPDATE Novella SET title='$safeTitle', text='$safeText', verified=$safeVerified, competition=$safeCompetition, mailUser='$safeMailUser', anonymousID='$safeAnonymousID', score=$safeScore  WHERE id=$safeID";
+      }
+
+      
+      $exec = mysqli_query($this->db, $query);
+    }
+  }
+
+  /**
+   * edit verified field of a novella
+   * @param id - id of the novella
+   */
+  public function editVerifiedNovella($id,$verified){
+    $safeID = mysqli_real_escape_string($this->db,htmlspecialchars($id));
+    $queryCheck = "SELECT COUNT(*) FROM Novella WHERE id=$safeID";
+    $execCheck = mysqli_query($this->db, $queryCheck);
+    $resultCheck = mysqli_fetch_array($execCheck);
+
+    if($resultCheck['COUNT(*)'] !== 0) {
+      $safeVerified = mysqli_real_escape_string($this->db,htmlspecialchars($verified));
+      $query = "UPDATE Novella SET verified=$safeVerified WHERE id=$safeID"; 
+      $exec = mysqli_query($this->db, $query);
     }
   }
 
@@ -61,6 +89,28 @@ class Novella {
       $query = "DELETE FROM Novella WHERE id=$id";
       $exec = mysqli_query($this->db, $query);
     }
+  }
+
+  /**
+   * list novellas related to a specific competition
+   */
+  public function listNovellas($competition) {
+    $safeCompetition = mysqli_real_escape_string($this->db, htmlspecialchars($competition));
+    $query = "SELECT id, title FROM Novella WHERE competition=$safeCompetition";
+    $exec = mysqli_query($this->db, $query);
+
+    return $exec;
+  }
+
+  /**
+   * get novella
+   */
+  public function getNovella($id) {
+    $safeId = mysqli_real_escape_string($this->db, htmlspecialchars($id));
+    $query = "SELECT id, title, text, verified, competition, mailUser, anonymousID, score, scorePrejury FROM Novella WHERE id=$safeId";
+    $exec = mysqli_query($this->db, $query);
+    return $exec;
+    
   }
 
 }

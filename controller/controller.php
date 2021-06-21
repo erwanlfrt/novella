@@ -66,4 +66,28 @@ function setCompetitionJurors() {
   require('model/organisateur/setCompetitionJurors.php');
 }
 
+function myAccount() {
+  require('view/myAccount.php');
+}
+
+function updateUser() {
+  require('model/updateUser.php');
+}
+
+function vote() {
+  require("view/vote.php");
+}
+
+function readAndVote() {
+  require("view/readAndVote.php");
+}
+
+function juryVoted() {
+  require("model/voted.php");
+}
+
+function verify() {
+  require("model/verify.php");
+}
+
 ?>
