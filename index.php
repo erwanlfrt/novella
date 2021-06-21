@@ -75,6 +75,9 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'verify') !== false) {
     verify();
   }
+  else if (strpos($_GET['action'], 'result') !== false) {
+    result();
+  }
   
   
 

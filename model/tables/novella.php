@@ -96,7 +96,7 @@ class Novella {
    */
   public function listNovellas($competition) {
     $safeCompetition = mysqli_real_escape_string($this->db, htmlspecialchars($competition));
-    $query = "SELECT id, title FROM Novella WHERE competition=$safeCompetition";
+    $query = "SELECT id, title, score FROM Novella WHERE competition=$safeCompetition";
     $exec = mysqli_query($this->db, $query);
 
     return $exec;

@@ -10,6 +10,7 @@ use \model\tables\Prejury;
 
 $competition = new Competition;
 $listCompetition = $competition->listAvailableCompetitions();
+$listCompetition2 = $competition->listCompetitions();
 
 $jury = new Jury;
 $listJuryCompetition = $jury->listCompetitions($_SESSION['email']);
@@ -62,5 +63,16 @@ $listPrejuryCompetition = $prejury->listCompetitions($_SESSION['email']);
           ?>
       </div>
     <?php } ?>
+  
+    <div>
+      <h2>Résultat</h2>
+      <?php      
+        while($data = mysqli_fetch_array($listCompetition2)){
+          ?><li><a href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a></li><?php
+         }
+        ?>
+    </div>
   </body>
+
+  
 </html>

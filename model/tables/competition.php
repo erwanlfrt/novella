@@ -69,7 +69,7 @@ class Competition {
    * list all existing competitions
    */
    public function listCompetitions() {
-      $query = "SELECT theme FROM Competition";
+      $query = "SELECT theme, id FROM Competition";
       $exec = mysqli_query($this->db, $query);
       return $exec;
    }

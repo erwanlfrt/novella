@@ -170,7 +170,15 @@ class User {
     return $exec;
  }
  
-
+ /**
+  * get user 
+  */
+  public function getUser($mail) {
+      $safeMail = mysqli_real_escape_string($this->db, htmlspecialchars($mail));
+      $query = "SELECT * FROM Users WHERE mail='$safeMail'";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+  }
 }
 
 

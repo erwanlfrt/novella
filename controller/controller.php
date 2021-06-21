@@ -90,4 +90,8 @@ function verify() {
   require("model/verify.php");
 }
 
+function result() {
+  require("view/result.php");
+}
+
 ?>
