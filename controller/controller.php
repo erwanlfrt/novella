@@ -66,6 +66,10 @@ function setCompetitionJurors() {
   require('model/organisateur/setCompetitionJurors.php');
 }
 
+function userHistory() {
+  require('view/organisateur/userHistory.php');
+}
+
 function myAccount() {
   require('view/myAccount.php');
 }

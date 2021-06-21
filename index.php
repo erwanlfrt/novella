@@ -57,6 +57,9 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'setCompetitionJurors') !== false) {
     setCompetitionJurors();
   }
+  else if (strpos($_GET['action'], 'userHistory') !== false) {
+    userHistory();
+  }
   else if (strpos($_GET['action'], 'myAccount') !== false) {
     myAccount();
   }

@@ -15,7 +15,6 @@ $listCompetition2 = $competition->listCompetitions();
 $jury = new Jury;
 $listJuryCompetition = $jury->listCompetitions($_SESSION['email']);
 
-
 $prejury = new Prejury;
 $listPrejuryCompetition = $prejury->listCompetitions($_SESSION['email']);
 
