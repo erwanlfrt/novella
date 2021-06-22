@@ -1,5 +1,9 @@
 <?php
 
+if (!$_SESSION['admin']) {
+    header("Location: /?action=home");
+}
+
 use \model\tables\Jury;
 use \model\tables\Prejury;
 
@@ -34,7 +38,7 @@ while ($data = mysqli_fetch_array($listCompetitionPrejury)) {
         <h2>Historique</h2>
         <ul>
             <?php foreach ($array as $item) { ?>
-            <li><?= $item ?></li>
+                <li><?= $item ?></li>
             <?php } ?>
         </ul>
     </div>

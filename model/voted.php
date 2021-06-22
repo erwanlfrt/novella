@@ -1,12 +1,6 @@
 <?php
 session_status() === PHP_SESSION_ACTIVE ?: session_start();
 
-require_once('model/tables/novella.php');
-require_once('model/tables/jury.php');
-require_once('model/tables/prejury.php');
-require_once('model/tables/vote.php');
-require_once('model/databaseConnection.php');
-
 use \model\tables\Novella;
 use \model\tables\Jury;
 use \model\tables\Prejury;

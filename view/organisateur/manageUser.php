@@ -1,5 +1,9 @@
 <?php
 
+if (!$_SESSION['admin']) {
+    header("Location: /?action=home");
+}
+
 use \model\tables\Competition;
 
 $competition = new Competition;
@@ -27,7 +31,7 @@ $listCompetition = $competition->listAvailableCompetitions();
                     <option value="<?= $data[1] ?>"><?= $data[0] ?></option>
                 <?php } ?>
             </select><br />
-            <input type="text" name="mail" value="<?= $_GET['mail']?>" /><br />
+            <input type="text" name="mail" value="<?= $_GET['mail'] ?>" /><br />
             <input type="submit" class="submit" value="Ajouter" />
         </form>
     </div>

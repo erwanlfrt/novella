@@ -18,12 +18,17 @@ class Competition {
       $theme =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['theme']));
       $incipit =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['incipit']));
       $deadline =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['deadline']));
+      $prejuryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['prejuryDate']));
+      $juryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['juryDate']));
 
       if($theme !== "" && $incipit !== "" && $deadline !== "") {
         $query = "INSERT INTO Competition (theme, incipit, creationDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$deadline');";
         
         $execRequest = mysqli_query($this->db, $query);
-        header('Location: ?action=pageOrganisateur');
+        
+        $query = "SELECT id FROM Competition ORDER BY ID DESC LIMIT 1";
+        $exec = mysqli_query($this->db,$query);
+        return mysqli_fetch_array($exec);
       }
     }
   }
@@ -75,10 +80,47 @@ class Competition {
    }
 
    /**
+    * list candidate competitions
+    */
+    public function listCandidateCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE curdate() <= deadline;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+    /**
+    * list prejury competitions
+    */
+    public function listPrejuryCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE deadline < curdate() AND curdate() <= prejuryDate;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+    /**
+    * list jury competitions
+    */
+    public function listJuryCompetitions() {
+      $query = "SELECT theme, id FROM Competition WHERE prejuryDate < curdate() AND curdate() <= juryDate;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+    /**
+    * list competitions over
+    */
+    public function listOverCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE curdate() > juryDate;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+
+   /**
     * list available competitions
     */
     public function listAvailableCompetitions() {
-      $query = "SELECT theme, id FROM Competition WHERE deadline > curdate();";
+      $query = "SELECT theme, id FROM Competition WHERE deadline >= curdate();";
       $exec = mysqli_query($this->db, $query);
       return $exec;
     }

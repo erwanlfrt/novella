@@ -1,6 +1,5 @@
 <?php
-session_status() === PHP_SESSION_ACTIVE ?: session_start();
-//require_once 'model/databaseConnection.php';
+
 use model\DatabaseConnection;
 
 if(isset($_POST['email']) && isset($_POST['password'])){ //check if we have a username and a password at least.

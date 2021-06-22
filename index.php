@@ -8,7 +8,6 @@ define('ROOT', dirname(__FILE__).DS);
 require_once 'model\autoloader.php';
 Autoloader::register();
 
-session_status() === PHP_SESSION_ACTIVE ?: session_start();
 require('controller/controller.php');
 
 if (isset($_GET['action'])) {
@@ -80,6 +79,9 @@ if (isset($_GET['action'])) {
   }
   else if (strpos($_GET['action'], 'result') !== false) {
     result();
+  }
+  else if (strpos($_GET['action'], 'disconnect') !== false) {
+    disconnection();
   }
   
   

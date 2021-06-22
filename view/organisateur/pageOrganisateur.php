@@ -1,5 +1,8 @@
 <?php
-session_status() === PHP_SESSION_ACTIVE ?: session_start();
+
+if (!$_SESSION['admin']) {
+  header("Location: /?action=home");
+}
 
 use \model\tables\User;
 use \model\tables\Prejury;
@@ -48,7 +51,7 @@ $listMailByCompetition = $competition->listJurorsMails(3);
           <td><?= $data[2] ?></td>
           <td><a href="?action=manageUser&mail=<?= $data[2] ?>">Ajouter a un concour</a></td>
           <td><a href="?action=userHistory&mail=<?= $data[2] ?>">Historique des concours</a></td>
-          <td><a href="?action=delUser">Supprimer</a></a></td> <!-- updateUser&delete avec un test si admin-->
+          <td><a href="?action=updateUser&delete&mail=<?= $data[2] ?>">Supprimer</a></a></td>
         </tr>
       <?php
       }

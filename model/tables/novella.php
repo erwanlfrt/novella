@@ -1,7 +1,7 @@
 <?php
+
 namespace model\tables;
 
-require_once 'model\databaseConnection.php';
 use \model\DatabaseConnection;
 
 class Novella {
@@ -25,7 +25,7 @@ class Novella {
 
       $query = "INSERT INTO Novella (title, text, verified, competition, mailUser, anonymousID) VALUES ('$title', '$text', $verified, $competition, '$mailUser', '$anonymousID');";
       $exec = mysqli_query($this->db, $query);
-      header('Location: ?action=participate');
+      header('Location: ?action=home');
     }
   }
 

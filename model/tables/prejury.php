@@ -1,4 +1,5 @@
 <?php
+
 namespace model\tables;
 
 use \model\DatabaseConnection;
@@ -73,7 +74,7 @@ class Prejury {
   public function listCompetitions($mail) {
     $email =  mysqli_real_escape_string($this->db, htmlspecialchars($mail));
     // header('Location: ?action='.$email);
-    $query = "SELECT competition, theme, points FROM Prejury, Competition WHERE Prejury.competition = Competition.id  AND deadline < curdate() AND mailUser='$email'";
+    $query = "SELECT competition, theme, points FROM Prejury, Competition WHERE Prejury.competition = Competition.id  AND deadline < curdate()  AND curdate() < prejuryDate AND mailUser='$email'";
     $exec = mysqli_query($this->db, $query);
     return $exec;
   }

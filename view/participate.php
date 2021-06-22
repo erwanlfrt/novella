@@ -1,7 +1,9 @@
 <?php
-  session_status() === PHP_SESSION_ACTIVE ?: session_start();
-  require_once 'model/tables/competition.php';
-  require_once 'model/tables/requiredWord.php';
+  
+  if (!$_SESSION) {
+    header("Location: /");
+  }
+
   use \model\tables\Competition;
   use \model\tables\RequiredWord;
 
@@ -81,14 +83,9 @@
 
     var conjugationArray= []; 
   </script>
-<<<<<<< HEAD
 
     <?php 
       while($datas = mysqli_fetch_array($requiredWords2)) {
-=======
-    <?php 
-      while($datas = mysqli_fetch_array($requiredWords2)){
->>>>>>> 1c41468dbb75fbb1770f04f55cf49d746d230c15
         $tenses = [
           "infinitive" => array("infinitive-present"),
           "indicative" => array("present", "imperfect", "future", "simple-past", "perfect-tense", "pluperfect", "anterior-past", "anterior-future"),
@@ -101,7 +98,6 @@
         //check if infinitive exist, if not we avoid to check each tenses
         $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode=infinitive&tense=infinitive-present';
         $content = @file($url);
-<<<<<<< HEAD
         if($content != false) { ?>
           <script>
             conjugationArray.push([]);
@@ -123,34 +119,6 @@
                 }
                 catch (Exception $e) {}
                 ?>
-=======
-        if($content != false) {
-          ?>
-          <script>
-             conjugationArray.push([]);
-          </script>
-          <?php
-          foreach(array_keys($tenses) as $mode) {
-            foreach($tenses[$mode] as $tense) {
-              $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode='.$mode.'&tense='.$tense;
-          
-              try {
-                // using file() function to get content
-                $lines_array= @file($url);
-                // turn array into one variable
-      
-                if($lines_array != false) {
-                  $lines_string=implode('',$lines_array);
-      
-                  $json = json_decode($lines_string);
-                }
-      
-                
-              }
-              catch (Exception $e) {
-              }
-              ?>
->>>>>>> 1c41468dbb75fbb1770f04f55cf49d746d230c15
               <script>
               <?php 
                 if(isset($json)) {
@@ -158,7 +126,6 @@
                       foreach($json->conjugation as $conjugation) {
                         ?>conjugationArray[conjugationArray.length-1].push("<?php echo $conjugation->verb ?>"); <?php
                       }
-<<<<<<< HEAD
                     }
                   } 
                 ?>
@@ -196,7 +163,7 @@
                 if(verb[0] === child.innerText) {
                   //check if text area contains at least one of the conjugation
                   for(var i=0 ; i < verb.length ; i++) {
-                    if(finalString.includes(" "+verb[i]) || finalString.includes(verb[i]+" ")) {
+                    if(finalString.includes(" "+verb[i]) && finalString.includes(verb[i]+" ")) {
                       child.style.color = "green";
                       validateWords.push(child.innerText);
                       break;
@@ -223,7 +190,8 @@
       
       var incipit = "<?php echo $competition['incipit'] ?>";
       document.getElementById("textArea").addEventListener("keyup", event => {
-        if(document.getElementById("textArea").value.length <= incipit.length) {
+        console.log(getCursorPos(document.getElementById("textArea")));
+        if(getCursorPos(document.getElementById("textArea")).start < incipit.length +1) {
           document.getElementById("textArea").value = incipit;
         }
       });
@@ -260,112 +228,35 @@
             el.fireEvent('on' + e.eventType, e);
         }
       }
-    </script>
-=======
-                  }
-                } 
-              ?></script> <?php
-            }
-            
-          }
-        }   
-    }
-    ?>
-    <script>
-    var verbs = [];
-    conjugationArray.forEach(verb => (verbs.push(verb[0])));
-    var validateWords = [];
-    document.getElementById("textArea").addEventListener("input", (event) => {
-      validateWords = [];
-      document.getElementById("wordListView").childNodes.forEach(child => {
-        var punctuationless = document.getElementById("textArea").value.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-        var finalString = punctuationless.replace(/\s{2,}/g," "); 
-        if(child.innerText !== undefined) {
-          if(finalString.includes((" "+child.innerText.toLowerCase()+" "))) {
-          child.style.color = "green";
-          validateWords.push(child.innerText);
-          }
-          else if (finalString.substr(0, finalString.indexOf(" ")).toLowerCase() === child.innerText.toLowerCase()) {
-            child.style.color = "green";
-            validateWords.push(child.innerText);
-          }
-          else {
-            child.style.color = "red";
-          }
-          //check verbs
-          if(verbs.includes(child.innerText) && child.style.color !== "green") {
-            conjugationArray.forEach(verb => {
-              if(verb[0] === child.innerText) {
-                //check if text area contains at least one of the conjugation
-                for(var i=0 ; i < verb.length ; i++) {
-                  if(finalString.includes(" "+verb[i]) || finalString.includes(verb[i]+" ")) {
-                    child.style.color = "green";
-                    validateWords.push(child.innerText);
-                    break;
-                  }
-                }
-              }
-            });
-          }
 
-          if(validateWords.length === document.getElementsByClassName("requiredWord").length && checkTitle) {
-            if(document.getElementById("title").value !== "") {
-              document.getElementById("submit").disabled = false;
-            }
-            wordLock = false;
-          }
-          else {
-            document.getElementById("submit").disabled = true;
-            wordLock = true;
-          }
-
+      function getCursorPos(input) {
+        if ("selectionStart" in input && document.activeElement == input) {
+            return {
+                start: input.selectionStart,
+                end: input.selectionEnd
+            };
         }
-      })
-    });
-    
-    var incipit = "<?php echo $competition['incipit'] ?>";
-    document.getElementById("textArea").addEventListener("keyup", event => {
-      if(document.getElementById("textArea").value.length <= incipit.length) {
-        document.getElementById("textArea").value = incipit;
-        
+        else if (input.createTextRange) {
+            var sel = document.selection.createRange();
+            if (sel.parentElement() === input) {
+                var rng = input.createTextRange();
+                rng.moveToBookmark(sel.getBookmark());
+                for (var len = 0;
+                        rng.compareEndPoints("EndToStart", rng) > 0;
+                        rng.moveEnd("character", -1)) {
+                    len++;
+                }
+                rng.setEndPoint("StartToStart", input.createTextRange());
+                for (var pos = { start: 0, end: len };
+                        rng.compareEndPoints("EndToStart", rng) > 0;
+                        rng.moveEnd("character", -1)) {
+                    pos.start++;
+                    pos.end++;
+                }
+                return pos;
+            }
+        }
+        return -1;
       }
-    });
-
-    var filePicker = document.getElementById("filePicker");
-    filePicker.addEventListener("change", (event) => {
-      if(filePicker.files[0].name.split('.').pop() === "txt" ) {
-        var reader = new FileReader();
-        var res;
-        reader.addEventListener('load', (event) => {
-          if(event.target.result.substr(0,incipit.length).toLowerCase() === incipit.toLowerCase()) {
-            document.getElementById("textArea").value = event.target.result;
-          }
-          else {
-            document.getElementById("fileMessage").innerText = filePicker.files[0].name + ' ne commence pas par l\'incipit "' + incipit + '".';
-            document.getElementById("fileMessage").style.color = "red";
-          }
-          
-          triggerEvent(document.getElementById("textArea"), 'input');
-        });
-        reader.readAsText(filePicker.files[0])
-      }
-    });
-
-
-    function triggerEvent(el, type) {
-      if ('createEvent' in document) {
-          var e = document.createEvent('HTMLEvents');
-          e.initEvent(type, false, true);
-          el.dispatchEvent(e);
-      } else {
-          var e = document.createEventObject();
-          e.eventType = type;
-          el.fireEvent('on' + e.eventType, e);
-      }
-    }
-    
-
-    
-  </script>
->>>>>>> 1c41468dbb75fbb1770f04f55cf49d746d230c15
+    </script>
 </html>
