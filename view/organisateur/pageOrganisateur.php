@@ -1,5 +1,8 @@
 <?php
-session_status() === PHP_SESSION_ACTIVE ?: session_start();
+
+if (!$_SESSION['admin']) {
+  header("Location: /?action=home");
+}
 
 use \model\tables\User;
 use \model\tables\Prejury;

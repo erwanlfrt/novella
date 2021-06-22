@@ -1,3 +1,11 @@
+<?php 
+
+if (!$_SESSION) {
+  header("Location: /");
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>

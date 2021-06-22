@@ -1,3 +1,11 @@
+<?php 
+
+if (!$_SESSION['admin']) {
+  header("Location: /?action=home");
+}
+
+?>
+
 <html>
 
 <head>

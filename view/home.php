@@ -1,9 +1,9 @@
 <?php
-  session_status() === PHP_SESSION_ACTIVE ?: session_start();
+  
+  if (!$_SESSION) {
+    header("Location: /");
+  }
 
-  require_once 'model/tables/competition.php';
-  require_once 'model/tables/jury.php';
-  require_once 'model/tables/prejury.php';
   use \model\tables\Competition;
   use \model\tables\Jury;
   use \model\tables\Prejury;
