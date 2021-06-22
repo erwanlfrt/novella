@@ -41,6 +41,7 @@
           }
         ?>
         <a class="home__access__link" href="?action=myAccount"><p>Gérer mon compte</p></a>
+        <a class="home__access__link" href="?action=disconnect"><p>Déco</p></a>
       </div>
       <div class="container">
         <h2 class="container__title">Concours</h2>

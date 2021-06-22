@@ -80,6 +80,9 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'result') !== false) {
     result();
   }
+  else if (strpos($_GET['action'], 'disconnect') !== false) {
+    disconnection();
+  }
   
   
 
