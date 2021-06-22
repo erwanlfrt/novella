@@ -25,6 +25,7 @@
               $err = $_GET['erreur'];
               if($err==1)
               {
+<<<<<<< HEAD
                 echo "<p class='form__sub__error'>Formulaire incomplet.</p>";
               }
               elseif($err==2){
@@ -47,5 +48,26 @@
         </div>
       </form>
     </main>
+=======
+                echo "<p style='color:red'>Invalid form</p>";
+              }
+              elseif($err==2){
+                echo "<p style='color:red'>User already exist</p>";
+              }
+              elseif($err==3)
+              {
+                echo "<p style='color:red'>Passwords don't match</p>";
+              }
+              elseif($err==4)
+              {
+                echo "<p style='color:red'>wrong login and/or password</p>";
+              }
+          }
+          ?>
+      </form>
+      <p>Don't have an account? <a href="/?action=signup">Sign up</a></p>
+      <p><a href="/?action=resetPwd">Forgot password ?</a></p>
+    </div>
+>>>>>>> 1c41468dbb75fbb1770f04f55cf49d746d230c15
   </body>
 </html>
