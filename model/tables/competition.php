@@ -23,7 +23,10 @@ class Competition {
         $query = "INSERT INTO Competition (theme, incipit, creationDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$deadline');";
         
         $execRequest = mysqli_query($this->db, $query);
-        header('Location: ?action=pageOrganisateur');
+        
+        $query = "SELECT id FROM Competition ORDER BY ID DESC LIMIT 1";
+        $exec = mysqli_query($this->db,$query);
+        return mysqli_fetch_array($exec);
       }
     }
   }

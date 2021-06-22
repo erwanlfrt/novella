@@ -23,7 +23,7 @@ class RequiredWord {
     $execCheck = mysqli_query($this->db, $queryCheck);
     $result = mysqli_fetch_array($execCheck);
 
-    if($result['COUNT(*)'] === 0) {
+    if($result['COUNT(*)'] == 0) {
       $query = "INSERT INTO requiredWord (competition, word) VALUES ($id, '$safeWord');";
       $exec = mysqli_query($this->db, $query);
     }
@@ -32,12 +32,10 @@ class RequiredWord {
   /**
    * add a list of required word
    */
-  public function addAllRequiredWord() {
-    if(isset($_GET['id']) && isset($POST['wordList'])) {
-      foreach($_POST['wordList'] as $word) {
-        addRequiredWord($_GET['id'], $word);
+  public function addAllRequiredWord($id, $wordArray) {
+      foreach($wordArray as $word) {
+        $this->addRequiredWord($id, $word);
       }
-    }
   }
 
   /**
@@ -85,5 +83,3 @@ class RequiredWord {
     return $exec;
   }
 }
-
-?>
