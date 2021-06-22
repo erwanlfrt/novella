@@ -12,8 +12,15 @@ if(isset($_GET['update'])) {
   header('Location: ?action=myAccount');
 }
 else if(isset($_GET['delete'])){
-  $user->deleteUser();
-  header('Location: ?action=login');
+  if ($_SESSION['admin'] && isset($_GET['mail'])) {
+    $user->deleteUser($_GET['mail']);
+    header("location: ?action=pageOrganisateur");
+  }
+  else if (!$_SESSION['admin']) {
+    $user->deleteUser($_SESSION['mail']);
+    header("location: ?action=login");
+  }
+  
 }
 
 

@@ -145,17 +145,16 @@ class User
   /**
    * delete a user
    */
-  public function deleteUser()
+  public function deleteUser($id)
   {
-    $email = mysqli_real_escape_string($this->db, htmlspecialchars($_SESSION['email']));
+    $email = mysqli_real_escape_string($this->db, htmlspecialchars($id));
 
-    $checkExist = mysqli_query($this->db, "SELECT count(*) FROM User WHERE mail='$email';");
+    $checkExist = mysqli_query($this->db, "SELECT count(*) FROM Users WHERE mail='$email';");
     $count = mysqli_fetch_array($checkExist)["count(*)"];
 
-    if ($count == 0) {
+    if ($count != 0) {
       mysqli_query($this->db, "DELETE FROM Users WHERE mail='$email';");
     }
-    header("location: ?action=login");
   }
 
   /**
