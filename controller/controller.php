@@ -98,4 +98,8 @@ function result() {
   require("view/result.php");
 }
 
+function disconnection() {
+  require("model/authentication/disconnection.php");
+}
+
 ?>
