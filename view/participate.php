@@ -188,7 +188,8 @@
       
       var incipit = "<?php echo $competition['incipit'] ?>";
       document.getElementById("textArea").addEventListener("keyup", event => {
-        if(document.getElementById("textArea").value.length <= incipit.length) {
+        console.log(getCursorPos(document.getElementById("textArea")));
+        if(getCursorPos(document.getElementById("textArea")).start < incipit.length +1) {
           document.getElementById("textArea").value = incipit;
         }
       });
@@ -224,6 +225,36 @@
             e.eventType = type;
             el.fireEvent('on' + e.eventType, e);
         }
+      }
+
+      function getCursorPos(input) {
+        if ("selectionStart" in input && document.activeElement == input) {
+            return {
+                start: input.selectionStart,
+                end: input.selectionEnd
+            };
+        }
+        else if (input.createTextRange) {
+            var sel = document.selection.createRange();
+            if (sel.parentElement() === input) {
+                var rng = input.createTextRange();
+                rng.moveToBookmark(sel.getBookmark());
+                for (var len = 0;
+                        rng.compareEndPoints("EndToStart", rng) > 0;
+                        rng.moveEnd("character", -1)) {
+                    len++;
+                }
+                rng.setEndPoint("StartToStart", input.createTextRange());
+                for (var pos = { start: 0, end: len };
+                        rng.compareEndPoints("EndToStart", rng) > 0;
+                        rng.moveEnd("character", -1)) {
+                    pos.start++;
+                    pos.end++;
+                }
+                return pos;
+            }
+        }
+        return -1;
       }
     </script>
 </html>
