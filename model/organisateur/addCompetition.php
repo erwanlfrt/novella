@@ -3,8 +3,9 @@
 use \model\tables\Competition;
 use \model\tables\RequiredWord;
 
-$array = explode(",", $_POST['requiredWords']);
-
+$arrayInput = explode(",", $_POST['requiredWords']);
+$arrayInput = array_map('strtolower', $arrayInput);
+$arrayInput = array_unique ($arrayInput);
 
 $competition = new Competition;
 $id = $competition->addCompetition();
