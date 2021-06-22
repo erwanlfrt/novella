@@ -1,7 +1,9 @@
 <?php
-  session_status() === PHP_SESSION_ACTIVE ?: session_start();
-  require_once 'model/tables/competition.php';
-  require_once 'model/tables/requiredWord.php';
+  
+  if (!$_SESSION) {
+    header("Location: /");
+  }
+
   use \model\tables\Competition;
   use \model\tables\RequiredWord;
 

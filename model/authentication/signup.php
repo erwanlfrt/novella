@@ -1,7 +1,4 @@
 <?php
-//session_start();
-require_once 'model/databaseConnection.php';
-require_once 'model/tables/user.php';
 
 use \model\tables\User;
 use \model\DatabaseConnection;

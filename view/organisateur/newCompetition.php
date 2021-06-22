@@ -1,3 +1,11 @@
+<?php
+
+if (!$_SESSION['admin']) {
+  header("Location: /?action=home");
+}
+
+?>
+
 <html>
 
 <head>
@@ -20,7 +28,7 @@
       <input type="submit" class="submit" value="Ajouter le concour" />
     </form>
 
-    
+
   </div>
 </body>
 
@@ -34,8 +42,7 @@
     let word = inputElement.value;
     if (word.trim() === "") {
       errorElement.innerHTML = "Empty input";
-    }
-    else {
+    } else {
       console.log(arrayOfWord);
       arrayOfWord.push(word);
       document.form.requiredWords.value = arrayOfWord;
