@@ -91,6 +91,11 @@
               </li> <?php
             }
             if($_SESSION['admin']) {
+              while($data = mysqli_fetch_array($listShowCandidateCompetitions)) { ?>
+                <li class="container__element" style="background-color : pink">
+                  <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
+                </li> <?php
+              }
               while($data = mysqli_fetch_array($listShowPrejuryCompetitions)) { ?>
                 <li class="container__element" style="background-color : green">
                   <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
