@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS `competition` (
   `theme` varchar(100) NOT NULL,
   `incipit` varchar(200) DEFAULT NULL,
   `creationDate` date NOT NULL,
+  `prejuryDate` date NOT NULL,
+  `juryDate` date NOT NULL,
   `deadline` date NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
@@ -42,8 +44,14 @@ CREATE TABLE IF NOT EXISTS `competition` (
 -- Déchargement des données de la table `competition`
 --
 
-INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `deadline`) VALUES
-(1, 'theme1', 'incipit1', '2020-01-01', '2020-02-01');
+INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `prejuryDate`, `juryDate`,`deadline`) VALUES
+(1, 'Concours pour candidat', 'incipit1', '2020-01-01', '2021-08-30','2020-09-30', '2021-07-01');
+
+INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `prejuryDate`, `juryDate`,`deadline`) VALUES
+(2, 'Concours pour prejury', 'Il était une fois', '2020-01-01', '2021-08-30','2020-06-15', '2021-06-01');
+
+INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `prejuryDate`, `juryDate`,`deadline`) VALUES
+(3, 'Concours pour jury', 'Il était une fois', '2020-01-01', '2021-08-30','2020-06-02', '2021-06-01');
 
 -- --------------------------------------------------------
 

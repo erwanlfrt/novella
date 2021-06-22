@@ -161,7 +161,7 @@
                 if(verb[0] === child.innerText) {
                   //check if text area contains at least one of the conjugation
                   for(var i=0 ; i < verb.length ; i++) {
-                    if(finalString.includes(" "+verb[i]) || finalString.includes(verb[i]+" ")) {
+                    if(finalString.includes(" "+verb[i]) && finalString.includes(verb[i]+" ")) {
                       child.style.color = "green";
                       validateWords.push(child.innerText);
                       break;

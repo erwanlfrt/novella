@@ -72,16 +72,53 @@ class Competition {
    * list all existing competitions
    */
    public function listCompetitions() {
-      $query = "SELECT theme, id FROM Competition";
+      $query = "SELECT theme, id, date  FROM Competition";
       $exec = mysqli_query($this->db, $query);
       return $exec;
    }
 
    /**
+    * list candidate competitions
+    */
+    public function listCandidateCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE curdate() <= deadline;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+    /**
+    * list prejury competitions
+    */
+    public function listPrejuryCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE deadline < curdate() AND curdate() <= prejuryDate;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+    /**
+    * list jury competitions
+    */
+    public function listJuryCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE prejuryDate < curdate() AND curdate() <= juryDate;";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+    /**
+    * list competitions over
+    */
+    public function listOverCompetitions() {
+      $query = "SELECT theme, id date  FROM Competition WHERE curdate() > juryDate";
+      $exec = mysqli_query($this->db, $query);
+      return $exec;
+    }
+
+
+   /**
     * list available competitions
     */
     public function listAvailableCompetitions() {
-      $query = "SELECT theme, id FROM Competition WHERE deadline > curdate();";
+      $query = "SELECT theme, id FROM Competition WHERE deadline >= curdate();";
       $exec = mysqli_query($this->db, $query);
       return $exec;
     }

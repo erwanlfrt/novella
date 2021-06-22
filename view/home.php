@@ -10,7 +10,10 @@
 
   $competition = new Competition;
   $listCompetition = $competition->listAvailableCompetitions();
-  $listCompetition2 = $competition->listCompetitions();
+  $listOverCompetitions = $competition->listOverCompetitions();
+  $listShowCandidateCompetitions = $competition->listCandidateCompetitions();
+  $listShowPrejuryCompetitions = $competition->listPrejuryCompetitions();
+  $listShowJuryCompetitions = $competition->listJuryCompetitions();
 
   $jury = new Jury;
   $listJuryCompetition = $jury->listCompetitions($_SESSION['email']);
@@ -82,10 +85,23 @@
         <h2 class="container__title">Résultats</h2>
         <ul class="container__list">
           <?php      
-            while($data = mysqli_fetch_array($listCompetition2)) { ?>
+            while($data = mysqli_fetch_array($listOverCompetitions)) { ?>
               <li class="container__element">
                 <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
               </li> <?php
+            }
+            if($_SESSION['admin']) {
+              while($data = mysqli_fetch_array($listShowPrejuryCompetitions)) { ?>
+                <li class="container__element" style="background-color : green">
+                  <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
+                </li> <?php
+              }
+
+              while($data = mysqli_fetch_array($listShowJuryCompetitions)) { ?>
+                <li class="container__element" style="background-color : blue">
+                  <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
+                </li> <?php
+              }
             }
           ?>
         </ul>

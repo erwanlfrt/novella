@@ -75,7 +75,7 @@ class Jury {
   public function listCompetitions($mail) {
     $email =  mysqli_real_escape_string($this->db, htmlspecialchars($mail));
     // header('Location: ?action='.$email);
-    $query = "SELECT competition, theme, points FROM Jury, Competition WHERE Jury.competition = Competition.id  AND deadline < curdate() AND mailUser='$email'";
+    $query = "SELECT competition, theme, points FROM Jury, Competition WHERE Jury.competition = Competition.id  AND deadline < curdate() AND prejuryDate < curdate() AND curdate() < juryDate AND mailUser='$email'";
     $exec = mysqli_query($this->db, $query);
     return $exec;
   }
