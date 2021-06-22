@@ -1,5 +1,4 @@
 <?php
-
 namespace model\tables;
 
 use \model\DatabaseConnection;
@@ -19,6 +18,8 @@ class Competition {
       $theme =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['theme']));
       $incipit =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['incipit']));
       $deadline =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['deadline']));
+      $prejuryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['prejuryDate']));
+      $juryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['juryDate']));
 
       if($theme !== "" && $incipit !== "" && $deadline !== "") {
         $query = "INSERT INTO Competition (theme, incipit, creationDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$deadline');";
@@ -73,7 +74,7 @@ class Competition {
    * list all existing competitions
    */
    public function listCompetitions() {
-      $query = "SELECT theme, id, date  FROM Competition";
+      $query = "SELECT theme, id FROM Competition";
       $exec = mysqli_query($this->db, $query);
       return $exec;
    }
@@ -100,7 +101,7 @@ class Competition {
     * list jury competitions
     */
     public function listJuryCompetitions() {
-      $query = "SELECT theme, id date  FROM Competition WHERE prejuryDate < curdate() AND curdate() <= juryDate;";
+      $query = "SELECT theme, id FROM Competition WHERE prejuryDate < curdate() AND curdate() <= juryDate;";
       $exec = mysqli_query($this->db, $query);
       return $exec;
     }
@@ -109,7 +110,7 @@ class Competition {
     * list competitions over
     */
     public function listOverCompetitions() {
-      $query = "SELECT theme, id date  FROM Competition WHERE curdate() > juryDate";
+      $query = "SELECT theme, id date  FROM Competition WHERE curdate() > juryDate;";
       $exec = mysqli_query($this->db, $query);
       return $exec;
     }

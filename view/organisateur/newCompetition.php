@@ -23,7 +23,12 @@ if (!$_SESSION['admin']) {
     <form id="form" name="form" action="?action=addCompetition" method="POST">
       <input type="text" name="theme" placeholder="theme" /><br />
       <input type="text" name="incipit" placeholder="incipit" /><br />
+      <p>deadline pour les candidats:</p>
       <input type="date" name="deadline" placeholder="deadline" /><br />
+      <p>deadline pour les prejurys</p>
+      <input type="date" name="prejuryDate" placeholder="deadline" /><br />
+      <p>deadline pour les jurys</p>
+      <input type="date" name="juryDate" placeholder="deadline" /><br />
       <input type="hidden" name="requiredWords" id="requiredWords" value="">
       <input type="submit" class="submit" value="Ajouter le concour" />
     </form>
@@ -43,7 +48,7 @@ if (!$_SESSION['admin']) {
     if (word.trim() === "") {
       errorElement.innerHTML = "Empty input";
     } else {
-      console.log(arrayOfWord);
+      errorElement.innerHTML = "";
       arrayOfWord.push(word);
       document.form.requiredWords.value = arrayOfWord;
       words.innerHTML = arrayOfWord.join(' - ');
