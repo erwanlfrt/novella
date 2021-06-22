@@ -41,9 +41,11 @@ $voteAccess = new Vote;
 $vote = $voteAccess->getVote($competition, $_SESSION['email'], $id, $isPrejury);
 if ($vote !== false && $vote !== null) {
   $voteResult = mysqli_fetch_array($vote);
-  $givenPoints = $voteResult[0];
-  if ($givenPoints === null) {
+  if ($voteResult === null) {
     $givenPoints =  0;
+  }
+  else {
+    $givenPoints = $voteResult[0];
   }
 } else {
   $givenPoints =  0;

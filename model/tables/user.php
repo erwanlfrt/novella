@@ -2,15 +2,7 @@
 
 namespace model\tables;
 
-// session_start();
-
-
-//Database connection
-require_once 'model/databaseConnection.php';
-
 use \model\DatabaseConnection;
-
-
 
 class User
 {

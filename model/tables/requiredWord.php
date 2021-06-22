@@ -1,7 +1,7 @@
 <?php
+
 namespace model\tables;
 
-require_once 'model\databaseConnection.php';
 use \model\DatabaseConnection;
 
 class RequiredWord {

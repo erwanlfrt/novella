@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (!$_SESSION['admin']) {
   header("Location: /?action=home");
@@ -28,7 +28,7 @@ if (!$_SESSION['admin']) {
       <input type="submit" class="submit" value="Ajouter le concour" />
     </form>
 
-    
+
   </div>
 </body>
 
@@ -42,8 +42,7 @@ if (!$_SESSION['admin']) {
     let word = inputElement.value;
     if (word.trim() === "") {
       errorElement.innerHTML = "Empty input";
-    }
-    else {
+    } else {
       console.log(arrayOfWord);
       arrayOfWord.push(word);
       document.form.requiredWords.value = arrayOfWord;

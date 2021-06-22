@@ -1,4 +1,5 @@
 <?php
+
 namespace model\tables;
 
 use \model\DatabaseConnection;
