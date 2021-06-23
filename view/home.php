@@ -25,88 +25,109 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novella - Accueil</title>
+    <title>Novelis - Accueil</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');
     </style> 
   </head>
   <body>
+    <header>
+      <a href="?action=home">
+        <div class="header__left"></div>
+      </a>
+      <div class="header__right">
+        <?php if ($_SESSION['admin']) { ?>
+          <a class="header__link" href="?action=pageOrganisateur">ESPACE ORGANISATEUR</a> <?php ;
+        } ?>
+        <a class="header__link" href="?action=myAccount">GÉRER MON COMPTE</a>
+        <a class="header__link" href="?action=disconnect">DÉCONNEXION</a>
+      </div>
+    </header>
     <main>
       <h1 id="title">Bonjour <?php echo $_SESSION["firstname"]?> !</h1>
-      <div class="home__access">
-        <?php 
-          if ($_SESSION['admin']) { ?>
-            <a class="home__access__link" href="?action=pageOrganisateur">Espace organisateur</a> <?php ;
-          }
-        ?>
-        <a class="home__access__link" href="?action=myAccount"><p>Gérer mon compte</p></a>
-        <a class="home__access__link" href="?action=disconnect"><p>Déco</p></a>
-      </div>
       <div class="container">
-        <h2 class="container__title">Concours</h2>
+        <h2 class="container__title">Concours actifs</h2>
         <ul class="container__list">
           <?php
             while($data = mysqli_fetch_array($listCompetition)) { ?>
-              <li class="container__element">
-                <a class="container__link" href="?action=showCompetition&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?></a>
-              </li> <?php
+              <a href="?action=showCompetition&id=<?php echo $data[1] ?>">
+                <li class="container__element">
+                  <p class="container__link"><?php echo $data[0]; ?></p>
+                </li>
+              </a> <?php
             }
           ?>
         </ul>
       </div>
+
       <div class="container">
         <h2 class="container__title">Jury</h2>
         <ul class="container__list">
           <?php      
             while($data = mysqli_fetch_array($listJuryCompetition)) { ?>
-              <li class="container__element">
-                <a class="container__link" href="?action=vote&id=<?php echo $data[0] ?>"><?php echo $data[1]; ?></a>
-              </li> <?php
+              <a href="?action=vote&id=<?php echo $data[0] ?>">
+                <li class="container__element">
+                  <p class="container__link"><?php echo $data[1]; ?></p>
+                </li>
+              </a> <?php
+            } 
+          ?>
+        </ul>
+      </div>
+        
+      <div class="container">
+        <h2 class="container__title">Pré-jury</h2>
+        <ul class="container__list">
+          <?php      
+            while($data = mysqli_fetch_array($listPrejuryCompetition)) { ?>
+              <a href="?action=vote&pre&id=<?php echo $data[0] ?>">
+                <li class="container__element">
+                  <p class="container__link"><?php echo $data[1]; ?></p>
+                </li>
+              </a> <?php
             } 
           ?>
         </ul>
       </div>
       
-      <?php if($listPrejuryCompetition !== false && $listPrejuryCompetition !== null) { ?>        
-        <div class="container">
-          <h2 class="container__title">Pré-jury</h2>
-          <ul class="container__list">
-            <?php      
-              while($data = mysqli_fetch_array($listPrejuryCompetition)) { ?>
-                <li class="container__element">
-                  <a class="container__link" href="?action=vote&pre&id=<?php echo $data[0] ?>"><?php echo $data[1]; ?></a>
-                </li> <?php
-              } 
-            ?>
-          </ul> 
-        </div>
-      <?php } ?>
       <div class="container">
         <h2 class="container__title">Résultats</h2>
         <ul class="container__list">
           <?php      
             while($data = mysqli_fetch_array($listOverCompetitions)) { ?>
-              <li class="container__element">
-                <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
-              </li> <?php
+              <a href="?action=result&id=<?php echo $data[1] ?>">
+                <li class="container__element">
+                  <p class="container__tag">Terminé</p>
+                  <p class="container__link"><?php echo $data[0]; ?></p>
+                </li>
+              </a> <?php
             }
             if($_SESSION['admin']) {
               while($data = mysqli_fetch_array($listShowCandidateCompetitions)) { ?>
-                <li class="container__element" style="background-color : pink">
-                  <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
-                </li> <?php
+                <a href="?action=result&id=<?php echo $data[1] ?>">
+                  <li class="container__element">
+                    <p class="container__tag">En cours</p>
+                    <p class="container__link"><?php echo $data[0]; ?></p>
+                  </li>
+                </a> <?php
               }
               while($data = mysqli_fetch_array($listShowPrejuryCompetitions)) { ?>
-                <li class="container__element" style="background-color : green">
-                  <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
-                </li> <?php
+                <a href="?action=result&id=<?php echo $data[1] ?>">
+                  <li class="container__element">
+                    <p class="container__tag">Pré-jury</p>
+                    <p class="container__link"><?php echo $data[0]; ?></p>
+                  </li>
+                </a> <?php
               }
 
               while($data = mysqli_fetch_array($listShowJuryCompetitions)) { ?>
-                <li class="container__element" style="background-color : blue">
-                  <a class="container__link" href="?action=result&id=<?php echo $data[1] ?>"><?php echo $data[0]; ?> </a>
-                </li> <?php
+                <a href="?action=result&id=<?php echo $data[1] ?>">
+                  <li class="container__element">
+                    <p class="container__tag">Jury</p>
+                    <p class="container__link"><?php echo $data[0]; ?></p>
+                  </li>
+                </a> <?php
               }
             }
           ?>

@@ -10,15 +10,25 @@ if (!$_SESSION) {
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novella - Mon compte</title>
+    <title>Novelis - Mon compte</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
     </style> 
   </head>
   <body>
+    <header>
+      <a href="?action=home">
+        <div class="header__left"></div>
+      </a>
+      <div class="header__right">
+        <?php if ($_SESSION['admin']) { ?>
+          <a class="header__link" href="?action=pageOrganisateur">ESPACE ORGANISATEUR</a> <?php ;
+        } ?>
+        <a class="header__link" href="?action=disconnect">DÉCONNEXION</a>
+      </div>
+    </header>
     <main>
-      <h1 id="title">Gestion de mon compte</h1>
       <form class="form" method="post" action="?action=updateUser&update">
         <h2 class="form__title">Modification</h2>
         <div class="form__login">

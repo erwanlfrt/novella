@@ -1,5 +1,4 @@
 <?php
-  
   if (!$_SESSION) {
     header("Location: /");
   }
@@ -22,30 +21,40 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novella - Participation</title>
+    <title>Novelis - Participation</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');
     </style> 
   </head>
   <body>
+    <header>
+      <a href="?action=home">
+        <div class="header__left"></div>
+      </a>
+      <div class="header__right">
+        <?php if ($_SESSION['admin']) { ?>
+          <a class="header__link" href="?action=pageOrganisateur">ESPACE ORGANISATEUR</a> <?php ;
+        } ?>
+        <a class="header__link" href="?action=myAccount">GÉRER MON COMPTE</a>
+        <a class="header__link" href="?action=disconnect">DÉCONNEXION</a>
+      </div>
+    </header>
     <main>
-      <h1><?php echo $competition['theme']?> - Participation</h1>
+      <h1><?php echo $competition['theme']?></h1>
       <form class="form" action="?action=addNovella&id=<?php echo $competition['id']?>" method="POST">
         <h2 class="form__title">Participation</h2>
         <div class="form__login">
           <input type="text" class="form__login__input" name="title" placeholder="Le titre de votre nouvelle" id="title">
-          <input class="form__login__button" type="file" name="file" id="filePicker">
-          <p id="fileMessage"></p>
-          <div>
-            <h3>mots requis: </h3>
-            <ul id="wordListView">
-              <?php
-                while($data = mysqli_fetch_array($requiredWords)){
-                  ?><li style="color:red" class="requiredWord"><?php echo $data[0]?></li><?php
-                  array_push($wordList, $data[0]);
-                }
-              ?>
+          <input class="form__login__file" type="file" name="file" id="filePicker">
+          <p class="infos__error" id="fileMessage"></p>
+          <div class="mots__container">
+            <h3 class="mots__title">Mots requis</h3>
+            <ul class="mots__liste" id="wordListView">
+              <?php while($data = mysqli_fetch_array($requiredWords)){ ?>
+                <li class="mots__element requiredWord"><?php echo $data[0]?></li>
+                <?php array_push($wordList, $data[0]);
+              } ?>
             </ul>
           </div>
           <textarea class="form__login__textarea" id="textArea" name="text"><?php echo $competition['incipit']?> </textarea>
@@ -147,24 +156,24 @@
           var finalString = punctuationless.replace(/\s{2,}/g," "); 
           if(child.innerText !== undefined) {
             if(finalString.includes((" "+child.innerText.toLowerCase()+" "))) {
-              child.style.color = "green";
+              child.style.display = "none";
               validateWords.push(child.innerText);
             }
             else if (finalString.substr(0, finalString.indexOf(" ")).toLowerCase() === child.innerText.toLowerCase()) {
-              child.style.color = "green";
+              child.style.display = "none";
               validateWords.push(child.innerText);
             }
             else {
-              child.style.color = "red";
+              child.style.display = "block";
             }
             //check verbs
-            if(verbs.includes(child.innerText) && child.style.color !== "green") {
+            if(verbs.includes(child.innerText) && child.style.display !== "none") {
               conjugationArray.forEach(verb => {
                 if(verb[0] === child.innerText) {
                   //check if text area contains at least one of the conjugation
                   for(var i=0 ; i < verb.length ; i++) {
                     if(finalString.includes(" "+verb[i]) && finalString.includes(verb[i]+" ")) {
-                      child.style.color = "green";
+                      child.style.display = "none";
                       validateWords.push(child.innerText);
                       break;
                     }
@@ -206,8 +215,8 @@
               document.getElementById("textArea").value = event.target.result;
             }
             else {
-              document.getElementById("fileMessage").innerText = filePicker.files[0].name + ' ne commence pas par l\'incipit "' + incipit + '".';
-              document.getElementById("fileMessage").style.color = "red";
+              document.getElementById("fileMessage").innerText = filePicker.files[0].name + ' ne commence pas par l\'incipit : "' + incipit + '".';
+              document.getElementById("fileMessage").style.display = "block";
             }
             
             triggerEvent(document.getElementById("textArea"), 'input');

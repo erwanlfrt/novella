@@ -1,47 +1,61 @@
 <?php
+    if (!$_SESSION['admin']) {
+        header("Location: /?action=home");
+    }
 
-if (!$_SESSION['admin']) {
-    header("Location: /?action=home");
-}
+    use \model\tables\Jury;
+    use \model\tables\Prejury;
 
-use \model\tables\Jury;
-use \model\tables\Prejury;
+    $jury = new Jury;
+    $prejury = new Prejury;
 
-$jury = new Jury;
-$prejury = new prejury;
+    $mail = $_GET['mail'];
 
-$mail = $_GET['mail'];
+    $listCompetitionJury = $jury->listCompetitions($mail);
+    $listCompetitionPrejury = $prejury->listCompetitions($mail);
 
-$listCompetitionJury = $jury->listCompetitions($mail);
-$listCompetitionPrejury = $prejury->listCompetitions($mail);
+    $array = array();
 
-$array = array();
+    while ($data = mysqli_fetch_array($listCompetitionJury)) {
+        $array[] = $data['theme'];
+    }
 
-while ($data = mysqli_fetch_array($listCompetitionJury)) {
-    $array[] = $data['theme'];
-}
-
-while ($data = mysqli_fetch_array($listCompetitionPrejury)) {
-    $array[] = $data['theme'];
-}
-
+    while ($data = mysqli_fetch_array($listCompetitionPrejury)) {
+        $array[] = $data['theme'];
+    }
 ?>
-
+<!DOCTYPE html>
 <html>
-
-<head>
-    <title>Historique de l'utilisateur</title>
-</head>
-
-<body>
-    <div class="main">
-        <h2>Historique</h2>
-        <ul>
-            <?php foreach ($array as $item) { ?>
-                <li><?= $item ?></li>
-            <?php } ?>
-        </ul>
-    </div>
-</body>
-
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Novelis - Historique</title>
+        <link rel="stylesheet" href="view/style/globalStyle.css">
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
+        </style> 
+    </head>
+    <body>
+        <header>
+            <a href="?action=home">
+                <div class="header__left"></div>
+            </a>
+            <div class="header__right">
+                <?php if ($_SESSION['admin']) { ?>
+                <a class="header__link" href="?action=pageOrganisateur">RETOUR</a> <?php ;
+                } ?>
+                <a class="header__link" href="?action=myAccount">GÉRER MON COMPTE</a>
+                <a class="header__link" href="?action=disconnect">DÉCONNEXION</a>
+            </div>
+        </header>
+        <main>
+            <h1>Historique</h1>
+            <ul class="container__list">
+                <?php foreach ($array as $item) { ?>
+                    <li class="container__element">
+                        <p class="container__link"><?= $item ?></p>
+                    </li>
+                <?php } ?>
+            </ul>
+        </main>
+    </body>
 </html>

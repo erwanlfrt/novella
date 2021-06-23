@@ -2,16 +2,21 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novella - Inscription</title>
+    <title>Novelis - Inscription</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
     </style> 
   </head>
   <body>
+    <header>
+      <a href="?action=home">
+        <div class="header__left"></div>
+      </a>
+      <div class="header__right">
+      </div>
+    </header>
     <main>
-      <h1 id="title">Novella</h1>
-    
       <form class="form" action="?action=register" method="POST">
         <h2 class="form__title">Inscription</h2>
         <div class="form__login">
