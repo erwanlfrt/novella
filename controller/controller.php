@@ -102,4 +102,12 @@ function disconnection() {
   require("model/authentication/disconnection.php");
 }
 
+function forbidden() {
+  require("view/forbidden.php");
+}
+
+function unknownURL() {
+  require("view/unknownURL.php");
+}
+
 ?>

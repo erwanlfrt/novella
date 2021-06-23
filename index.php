@@ -83,13 +83,11 @@ if (isset($_GET['action'])) {
   else if (strpos($_GET['action'], 'disconnect') !== false) {
     disconnection();
   }
-  
-  
-
-
-
-  else if (strpos($_GET['action'], 'test') !== false) {
-    test();
+  else if (strpos($_GET['action'], 'forbidden') !== false) {
+    forbidden();
+  }
+  else {
+    unknownURL();
   }
 }else {
     login();

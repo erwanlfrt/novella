@@ -9,12 +9,12 @@ if (!$_SESSION['admin']) {
 <html>
 
 <head>
-  <title>Ajouter un concour</title>
+  <title>Ajouter un concours</title>
 </head>
 
 <body>
   <div class="main">
-    <h1 id="title">Ajouter un concour</h1>
+    <h1 id="title">Ajouter un concours</h1>
 
     <input type="text" id="requiredWords" name="requiredWords" /><button onclick="addWord()">Ajouter des mots</button>
     <div id="error"></div>
