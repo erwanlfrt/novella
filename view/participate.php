@@ -151,6 +151,13 @@
       var validateWords = [];
       document.getElementById("textArea").addEventListener("input", (event) => {
         validateWords = [];
+        console.log("length = ", document.getElementById("wordListView").childNodes.length);
+        if(document.getElementById("wordListView").childNodes.length === 1) {
+          if(document.getElementById("title").value !== "") {
+                document.getElementById("submit").disabled = false;
+          }
+          wordLock = false;
+        }
         document.getElementById("wordListView").childNodes.forEach(child => {
           var punctuationless = document.getElementById("textArea").value.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
           var finalString = punctuationless.replace(/\s{2,}/g," "); 
@@ -199,7 +206,6 @@
       
       var incipit = "<?php echo $competition['incipit'] ?>";
       document.getElementById("textArea").addEventListener("keyup", event => {
-        console.log(getCursorPos(document.getElementById("textArea")));
         if(getCursorPos(document.getElementById("textArea")).start < incipit.length +1) {
           document.getElementById("textArea").value = incipit;
         }

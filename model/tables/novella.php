@@ -113,6 +113,24 @@ class Novella {
     
   }
 
+  /**
+   * check participation
+   */
+  public function hasParticipate($competition, $user) {
+    $safeCompetition = mysqli_real_escape_string($this->db, htmlspecialchars($competition));
+    $safeUser = mysqli_real_escape_string($this->db, htmlspecialchars($user));
+
+    $query = "SELECT title FROM Novella WHERE competition=$safeCompetition AND mailUser='$safeUser';";
+    $exec = mysqli_query($this->db, $query);
+
+    if(mysqli_fetch_array($exec)['title'] != null) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 }
 
 ?>

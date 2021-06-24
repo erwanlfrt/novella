@@ -7,13 +7,15 @@
   use \model\tables\RequiredWord;
   use \model\tables\Jury;
   use \model\tables\Prejury;
+  use \model\tables\Novella;
 
   $dataAccess = new Competition;
   $requiredWordAccess = new RequiredWord;
   $juryAccess = new Jury;
   $prejuryAccess = new Prejury;
+  $novellaAccess = new Novella;
 
-  if (isset($_GET['id'])) {
+  if (isset($_GET['id']) && isset($_SESSION['email'])) {
     $competition = $dataAccess->getCompetition($_GET['id']);
     $requiredWords = $requiredWordAccess->getRequiredWords($_GET['id']);
     $isJury = mysqli_fetch_array($juryAccess->getCompetition($_GET['id'], $_SESSION['email']))["points"] != null;
@@ -29,8 +31,13 @@
     else {
       $remainingTime = $interval->format('(%a jours restants)');
     }
-    
     $properDate = $target->format("d/m/Y");
+
+    $hasParticipate = $novellaAccess->hasParticipate($_GET['id'],$_SESSION['email'] );
+    
+  }
+  else {
+    header("Location: ?action=forbidden");
   }
 ?>
 <!DOCTYPE html>
@@ -83,8 +90,11 @@
         if($isCompetitionOver) {
           echo "Concours terminé, vous ne pouvez plus y participer.";
         }
+        if($hasParticipate) {
+          echo "Vous avez déjà participé à ce concours";
+        }
       ?> </p>
-      <input class='form__login__submit <?= ($isPrejury || $isJury || $isCompetitionOver) ? "hide" : ""?>' type="submit" value="Participer" />
+      <input class='form__login__submit <?= ($isPrejury || $isJury || $isCompetitionOver || $hasParticipate) ? "hide" : ""?>' type="submit" value="Participer" />
     </form>
   </main>
 </body>
