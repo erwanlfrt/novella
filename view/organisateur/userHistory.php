@@ -59,15 +59,19 @@
         </header>
         <main>
             <h1 id="title">Historique de <?= $userInfo['firstname'], " ", $userInfo['name'] ?></h1>
-            <ul class="container__list">
-                <?php foreach ($array as $item) { ?>
-                    <a href="/?action=result&id=<?= $item['id'] ?>">
-                        <li class="container__element">
-                            <p class="container__link"><?= $item['theme'] ?></p>
-                        </li>
-                    </a>
-                <?php } ?>
-            </ul>
+            <?php if($array != array()) { ?>
+                <ul class="container__list">
+                    <?php foreach ($array as $item) { ?>
+                        <a href="/?action=result&id=<?= $item['id'] ?>">
+                            <li class="container__element">
+                                <p class="container__link"><?= $item['theme'] ?></p>
+                            </li>
+                        </a>
+                    <?php } ?>
+                </ul>
+            <?php } else { ?>
+                <p class="container__empty">Aucun historique disponible pour cet utilisateur.</p>
+            <?php } ?>
         </main>
     </body>
 </html>

@@ -28,7 +28,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novelis - Page inexistante</title>
+    <title>Novelis - Résultats</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');

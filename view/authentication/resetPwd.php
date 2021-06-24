@@ -45,7 +45,7 @@
                 echo "<p class='form__sub__error'>Identifiant ou mot de passe invalide.</p>";
               }
               elseif($err==5){
-                echo "<p class='form__sub__error'>Cet utilisateur n'existe pas. Voulez-vous <a href='/?action=signup' class='form__sub__link'> vous inscrire ?</a></p>";
+                echo "<p class='form__sub__error'>Cet utilisateur n'existe pas. Voulez-vous <a href='/?action=signup' class='form__sub__link'> vous inscrire</a> ?</p>";
               }
             }
           ?>

@@ -71,14 +71,14 @@
         <h2 class="infos__title">Deadline :</h2>
         <p class="infos__contenu"><?php echo $properDate." ".$remainingTime ?></p>
         <h2 class="infos__title">Mots requis :</h2>
-        <p class="infos__contenu" id="motsRequis"><?php
-          $count = 0;
-          while ($data = mysqli_fetch_array($requiredWords)) {
-            $count++;
-            echo $data[0] ?>, <?php
-          }
-          ?></p>
-          <?= $count == 0 ? "Aucun mot requis" : "" ?>
+        <p class="infos__contenu" id="motsRequis">
+          <?php if(mysqli_fetch_array($requiredWords) != null) {
+            while ($data = mysqli_fetch_array($requiredWords)) {
+              echo $data[0] ?>, <?php
+            }
+          } else { ?>Aucun mot requis.<?php
+          } ?>
+          </p>
       </div>
 
     <form class="form" action="?action=participate&id=<?php echo $competition['id'] ?>" method="POST">

@@ -48,21 +48,26 @@
       <h1 id="title">Bonjour <?php echo $_SESSION["firstname"]?> !</h1>
       <div class="container">
         <h2 class="container__title">Concours actifs</h2>
-        <ul class="container__list">
-          <?php
-            while($data = mysqli_fetch_array($listCompetition)) { ?>
-              <a href="?action=showCompetition&id=<?php echo $data[1] ?>">
-                <li class="container__element">
-                  <p class="container__link"><?php echo $data[0]; ?></p>
-                </li>
-              </a> <?php
-            }
-          ?>
-        </ul>
+        <?php if($listCompetition->num_rows > 0) { ?>
+          <ul class="container__list">
+            <?php
+              while($data = mysqli_fetch_array($listCompetition)) { ?>
+                <a href="?action=showCompetition&id=<?php echo $data[1] ?>">
+                  <li class="container__element">
+                    <p class="container__link"><?php echo $data[0]; ?></p>
+                  </li>
+                </a> <?php
+              }
+            ?>
+          </ul>
+        <?php } else { ?>
+          <p class="container__empty">Aucun concours actif ne vous est disponible.</p>
+        <?php } ?>
       </div>
 
       <div class="container">
         <h2 class="container__title">Jury</h2>
+        <?php if($listJuryCompetition->num_rows > 0) { ?>
         <ul class="container__list">
           <?php      
             while($data = mysqli_fetch_array($listJuryCompetition)) { ?>
@@ -74,10 +79,14 @@
             } 
           ?>
         </ul>
+        <?php } else { ?>
+          <p class="container__empty">Aucun concours en phase de Jury ne vous est disponible.</p>
+        <?php } ?>
       </div>
         
       <div class="container">
         <h2 class="container__title">Pré-jury</h2>
+        <?php if($listPrejuryCompetition->num_rows > 0) { ?>
         <ul class="container__list">
           <?php      
             while($data = mysqli_fetch_array($listPrejuryCompetition)) { ?>
@@ -89,10 +98,14 @@
             } 
           ?>
         </ul>
+        <?php } else { ?>
+          <p class="container__empty">Aucun concours en phase de Pré-Jury ne vous est disponible.</p>
+        <?php } ?>
       </div>
       
       <div class="container">
         <h2 class="container__title">Résultats</h2>
+        <?php if($listOverCompetitions->num_rows > 0 || $listShowCandidateCompetitions->num_rows > 0 || $listShowPrejuryCompetitions->num_rows > 0 || $listShowJuryCompetitions->num_rows > 0) { ?>
         <ul class="container__list">
           <?php      
             while($data = mysqli_fetch_array($listOverCompetitions)) { ?>
@@ -132,6 +145,9 @@
             }
           ?>
         </ul>
+        <?php } else { ?>
+          <p class="container__empty">Aucun concours en phase de Résultat ne vous est disponible.</p>
+        <?php } ?>
       </div>
     </main>
   </body>

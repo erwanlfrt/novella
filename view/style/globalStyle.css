@@ -17,7 +17,7 @@
     --lighter-bg: #302f2fdd;
     --light: white;
     --darker: #999;
-    --error: darkred;
+    --error: rgb(158, 25, 25);
 }
 
 html {
@@ -26,7 +26,7 @@ html {
 }
 
 body {
-    /*background-image: url("../img/bg.png");*/
+    background-image: url("../img/bg2.png");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
@@ -172,7 +172,7 @@ td {
     font-size: 2.5vh;
     font-weight: 500;
     margin: 1vh auto 0;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 10px;
     filter: drop-shadow(0 0 2px black);
     cursor: pointer;
@@ -264,7 +264,7 @@ td {
     padding: 2rem 4rem;
     margin: 5vh auto 3vh;
     border-radius: 10px;
-    filter: drop-shadow(0 0 2px black);
+    filter: drop-shadow(0 0 4px black);
     background-color: var(--dark-bg-op);
 }
 
@@ -383,10 +383,11 @@ td {
 }
 
 .form__sub__error {
-    color: var(--light);
+    color: var(--error);
     font-weight: 500;
     line-height: 4vh;
     font-size: 2.5vh;
+    margin: 2vh 0;
 }
 
 .form__sub__link {
@@ -465,7 +466,7 @@ option {
     filter: drop-shadow(0 0 2px black);
     margin: 2rem 0 0 2rem;;
     border-radius: 10px;
-    width: 90vw;
+    width: 94vw;
     padding-bottom: 3vh;
 }
 

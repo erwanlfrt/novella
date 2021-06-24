@@ -5,7 +5,7 @@
     <title>Novelis - Inscription</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');
     </style> 
   </head>
   <body>

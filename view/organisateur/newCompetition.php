@@ -10,7 +10,7 @@
     <title>Novelis - Nouveau concours</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;500;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');
     </style> 
   </head>
   <body>
@@ -40,9 +40,10 @@
 
         <input class="form__login__input" style="margin-top: 2rem;" type="text" id="inputdWords" name="inputdWords" placeholder="Insérer un mot de contrainte"/>
         <div class="button" onclick="addWord()">Ajouter le mot</div>
-        <div class="form__sub__content" id="error"></div>
+        <div class="form__sub__error" id="error"></div>
         <p class="form__label">Mots de contrainte</p>
-        <div class="form__sub__error" id="words" style="margin-bottom: 2rem;"></div>
+        <div class="form__sub__content" id="words" style="margin-bottom: 2rem; max-width: 50rem;
+text-align: center;"></div>
         <input type="hidden" name="requiredWords" id="requiredWords" value="">
         <input class="form__login__submit" type="submit" class="submit" value="Ajouter le concours"/>
       </form>
@@ -58,7 +59,7 @@
     function addWord() {
       let word = inputElement.value;
       if (word.trim() === "") {
-        errorElement.innerHTML = "Erreur : Entrée vide";
+        errorElement.innerHTML = "Entrée vide";
       } else {
         errorElement.innerHTML = "";
         arrayOfWord.push(word);
