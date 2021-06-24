@@ -57,9 +57,8 @@
             $title = $novella['title'];
             $mailWritter = $novella['mailUser'];
             $user = $userAccess->getUser($mailWritter);
-            $data = mysqli_fetch_array($user);
-            $name = $data['name'];
-            $firstname = $data['firstname']; ?>
+            $name = $user['name'];
+            $firstname = $user['firstname']; ?>
             
             <li class="results__element">
               <p class="results__place"><?php echo $place ?></p>
