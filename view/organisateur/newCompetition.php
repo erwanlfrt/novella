@@ -38,12 +38,12 @@
         <p class="form__label">Deadline pour les jurys</p>
         <input class="form__login__input" type="date" name="juryDate" placeholder="deadline"/>
 
-        <input class="form__login__input" style="margin-top: 2rem;" type="text" id="requiredWords" name="requiredWords" placeholder="Insérer un mot de contrainte"/>
+        <input class="form__login__input" style="margin-top: 2rem;" type="text" id="inputdWords" name="inputdWords" placeholder="Insérer un mot de contrainte"/>
         <div class="button" onclick="addWord()">Ajouter le mot</div>
         <div class="form__sub__content" id="error"></div>
         <p class="form__label">Mots de contrainte</p>
         <div class="form__sub__error" id="words" style="margin-bottom: 2rem;"></div>
-
+        <input type="hidden" name="requiredWords" id="requiredWords" value="">
         <input class="form__login__submit" type="submit" class="submit" value="Ajouter le concours"/>
       </form>
     </main>
@@ -51,7 +51,7 @@
 
   <script>
     let arrayOfWord = [];
-    let inputElement = document.getElementById('requiredWords');
+    let inputElement = document.getElementById('inputdWords');
     let errorElement = document.getElementById('error');
     let wordsElement = document.getElementById('words');
 
