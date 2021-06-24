@@ -17,6 +17,4 @@ if (isset($_POST['requiredWords'])) {
     $requireWord->addAllRequiredWord($id[0], $arrayInput);
 }
 
-header('Location: ?action=pageOrganisateur');
-
 ?>

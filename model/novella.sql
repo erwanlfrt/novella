@@ -40,18 +40,7 @@ CREATE TABLE IF NOT EXISTS `competition` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `competition`
---
 
-INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `prejuryDate`, `juryDate`,`deadline`) VALUES
-(1, 'Concours pour candidat', 'incipit1', '2020-01-01', '2021-08-30','2020-09-30', '2021-07-01');
-
-INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `prejuryDate`, `juryDate`,`deadline`) VALUES
-(2, 'Concours pour prejury', 'Il était une fois', '2020-01-01', '2021-08-30','2020-06-15', '2021-06-01');
-
-INSERT INTO `competition` (`id`, `theme`, `incipit`, `creationDate`, `prejuryDate`, `juryDate`,`deadline`) VALUES
-(3, 'Concours pour jury', 'Il était une fois', '2020-01-01', '2021-08-30','2020-06-02', '2021-06-01');
 
 -- --------------------------------------------------------
 
@@ -71,8 +60,7 @@ CREATE TABLE IF NOT EXISTS `jury` (
 -- Déchargement des données de la table `jury`
 --
 
-INSERT INTO `jury` (`competition`, `mailUser`, `points`) VALUES
-(0, 'test2@gmail.com', 1000);
+
 
 -- --------------------------------------------------------
 
@@ -160,14 +148,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`mail`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`mail`, `password`, `name`, `firstname`) VALUES
-('test@gmail.com', 'f71dbe52628a3f83a77ab494817525c6', 'Nom', 'Prenom'),
-('test2@gmail.com', 'f71dbe52628a3f83a77ab494817525c6', 'Nom', 'Prenom');
-COMMIT;
 
 -- Add column admin
 ALTER TABLE `users` ADD `admin` BOOLEAN NOT NULL AFTER `firstname`;

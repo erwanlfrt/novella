@@ -53,6 +53,7 @@
         <?php
           $place = 1;
           foreach (array_keys($scores) as $score) {
+            if($scores[$score] > 0) {
             $novella = mysqli_fetch_array($novellaAccess->getNovella($score));
             $title = $novella['title'];
             $mailWritter = $novella['mailUser'];
@@ -62,9 +63,11 @@
             
             <li class="results__element">
               <p class="results__place"><?php echo $place ?></p>
-              <p class="results__infos"><?php echo $title . " - "; echo $firstname . " ("; echo $scores[$score] . ")";?></p>
+                <p class="results__infos"><?php echo $title . " - "; echo $firstname . " ("; echo $scores[$score] . ")";?></p>
             </li>
             <?php $place++; 
+            } 
+            
           } 
         ?>
       </ul>

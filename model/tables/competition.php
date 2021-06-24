@@ -14,22 +14,29 @@ class Competition {
    * add a competition
    */
   public function addCompetition() {
-    if(isset($_POST['theme']) && isset($_POST['incipit']) && isset($_POST['deadline'])) {
+    if(isset($_POST['theme']) && isset($_POST['incipit']) && isset($_POST['deadline']) &&isset($_POST['prejuryDate']) && isset($_POST['juryDate'])) {
       $theme =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['theme']));
       $incipit =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['incipit']));
       $deadline =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['deadline']));
       $prejuryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['prejuryDate']));
       $juryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['juryDate']));
 
-      if($theme !== "" && $incipit !== "" && $deadline !== "") {
+      if($theme !== "" && $incipit !== "" && $deadline !== "" && $juryDate !== "" && $prejuryDate!== "") {
         $query = "INSERT INTO Competition (theme, incipit, creationDate, prejuryDate, juryDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$prejuryDate', '$juryDate', '$deadline');";
         
         $execRequest = mysqli_query($this->db, $query);
         
         $query = "SELECT id FROM Competition ORDER BY ID DESC LIMIT 1";
         $exec = mysqli_query($this->db,$query);
+        header('Location: ?action=pageOrganisateur');
         return mysqli_fetch_array($exec);
       }
+      else {
+        header('Location: ?action=newCompetition&err=1');
+      }
+    }
+    else {
+      header('Location: ?action=newCompetition&err=1');
     }
   }
 

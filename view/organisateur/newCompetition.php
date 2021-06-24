@@ -32,11 +32,11 @@
         <input class="form__login__input" type="text" name="theme" placeholder="Thème"/>
         <textarea class="form__login__textarea" type="text" name="incipit" placeholder="Incipit"></textarea>
         <p class="form__label">Deadline pour les candidats</p>
-        <input class="form__login__input" type="date" name="deadline" placeholder="deadline"/>
+        <input id="deadline" class="form__login__input" type="date" name="deadline" placeholder="deadline" min="<?php echo date('Y-m-d');?>"/>
         <p class="form__label">Deadline pour les pré-jurys</p>
-        <input class="form__login__input" type="date" name="prejuryDate" placeholder="deadline"/>
+        <input id="prejuryDate" class="form__login__input" type="date" name="prejuryDate" placeholder="deadline" min="<?php echo date('Y-m-d');?>"/>
         <p class="form__label">Deadline pour les jurys</p>
-        <input class="form__login__input" type="date" name="juryDate" placeholder="deadline"/>
+        <input id="juryDate" class="form__login__input" type="date" name="juryDate" placeholder="deadline" min="<?php echo date('Y-m-d');?>"/>
 
         <input class="form__login__input" style="margin-top: 2rem;" type="text" id="inputdWords" name="inputdWords" placeholder="Insérer un mot de contrainte"/>
         <div class="button" onclick="addWord()">Ajouter le mot</div>
@@ -67,5 +67,20 @@
       }
       inputElement.value = "";
     }
+
+
+    document.getElementById('deadline').addEventListener("change", (e)=> {
+      var prejuryDate = new Date(document.getElementById('deadline').value);
+      prejuryDate.setDate(prejuryDate.getDate()+1);
+      document.getElementById('prejuryDate').min = prejuryDate.toLocaleDateString("fr-CA");
+    })
+
+    document.getElementById('prejuryDate').addEventListener("change", (e)=> {
+      var juryDate = new Date(document.getElementById('prejuryDate').value);
+      juryDate.setDate(juryDate.getDate()+1);
+      document.getElementById('juryDate').min = juryDate.toLocaleDateString("fr-CA");
+    })
+
+
   </script>
 </html>
