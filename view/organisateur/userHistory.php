@@ -17,13 +17,18 @@
     $listCompetitionJury = $jury->listCompetitions($mail);
     $listCompetitionPrejury = $prejury->listCompetitions($mail);
 
+    $userInfo = $user->getUser($mail);
+
+    $listCompetitionJury = $jury->listCompetitions($mail);
+    $listCompetitionPrejury = $prejury->listCompetitions($mail);
+
     $array = array();
 
     while ($data = mysqli_fetch_array($listCompetitionJury)) {
         $array[$data['competition']]['theme'] = $data['theme'];
         $array[$data['competition']]['id'] = $data['competition'];
     }
-    
+
     while ($data = mysqli_fetch_array($listCompetitionPrejury)) {
         $array[$data['competition']]['theme'] = $data['theme'];
         $array[$data['competition']]['id'] = $data['competition'];

@@ -165,9 +165,9 @@ class User
   public function getUser($mail)
   {
     $safeMail = mysqli_real_escape_string($this->db, htmlspecialchars($mail));
-    $query = "SELECT * FROM Users WHERE mail='$safeMail'";
+    $query = "SELECT name, firstname FROM Users WHERE mail='$safeMail'";
     $exec = mysqli_query($this->db, $query);
-    return $exec;
+    return mysqli_fetch_array($exec);
   }
   
 }
