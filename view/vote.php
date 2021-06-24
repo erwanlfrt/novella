@@ -13,9 +13,7 @@
     $novella = new Novella;
     $id = $_GET['id'];
     
-    
     $pre = "";
-    
     
     $competitionAccess = new Competition;
     $competition = $competitionAccess->getCompetition($id);
@@ -56,7 +54,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novelis - Page inexistante</title>
+    <title>Novelis - Votes</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');
@@ -77,13 +75,15 @@
     </header>
     <main>
       <h1>Vote du concours : <?php echo $competition['theme'] ?></h1>
-      <div>
+      <ul class="container__list">
         <?php while ($data = mysqli_fetch_array($novellas)) { ?>
-          <li>
-            <a href="?action=readAndVote<?php echo $pre; ?>&id=<?php echo $data[0] ?>"><?php echo $data[1]; ?></a>
-          </li> <?php
+          <a href="?action=readAndVote<?php echo $pre; ?>&id=<?php echo $data[0] ?>">
+            <li class="container__element">
+              <p class="container__link"><?php echo $data[1]; ?></p>
+            </li>
+          </a> <?php
         } ?>
-      </div>
+      </ul>
       <h3 class="vote__points">Points restants : <?php echo $remainingPoints ?></h3>
     </main>
   </body>

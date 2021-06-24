@@ -5,13 +5,6 @@
 }
 
 :root {
-    --main-darker: #BFAF8F;
-    --main-dark: #73563D;
-    --main-light: #c6d7da;
-    --main-lighter: #E9F1F2;
-    --main-third: #593831;
-    --main-thirder: #593831BB;
-
     --dark-bg: #0A0A0Add;
     --dark-bg-op: #0A0A0Aaa;
     --lighter-bg: #302f2fdd;
@@ -104,7 +97,7 @@ h1 {
     font-size: 4rem;
     color: var(--dark-bg);
     font-weight: 100;
-    text-transform: capitalize;
+    max-width: 95vw;
 }
 
 a {
@@ -211,7 +204,7 @@ td {
     border-radius: 10px;
     filter: drop-shadow(0 0 1px black);
     list-style-type: none;
-    justify-content: space-between;
+    justify-content: space-around;
     border: solid 3px var(--dark-bg);
 }
 
@@ -255,6 +248,62 @@ td {
     font-size: 2rem;
     color: var(--bg--dark);
     font-weight: 300;
+}
+
+.read__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 4rem;
+    margin: 5vh auto 3vh;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 4px black);
+    background-color: var(--dark-bg-op);
+}
+
+.read__title {
+    font-size: 8vmin;
+    color: var(--light);
+    text-align: center;
+    filter: drop-shadow(0 0 2px black);
+    margin-bottom: 2vh;
+    line-height: 7vmin;
+}
+
+.read__title__min {
+    font-size: 2.5rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+.read__textarea {
+    background-color: var(--light);
+    color: var(--dark-bg);
+    border: none;
+    font-size: 2.5vh;
+    font-weight: 500;
+    margin: 1vh 0;
+    width: 50rem;
+    border-radius: 10px;
+    padding: 0.5rem;
+    filter: drop-shadow(0 0 2px black);
+    max-width: 90vw;
+}
+
+.read__note {
+    color: var(--darker);
+    font-weight: 500;
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    width: 26rem;
+    margin: 1rem 0 2rem;
+}
+
+.read__note__container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
 }
 
 .form {
@@ -560,7 +609,7 @@ option {
     border-radius: 10px;
     filter: drop-shadow(0 0 1px black);
     list-style-type: none;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border: solid 3px var(--dark-bg);
 }
 

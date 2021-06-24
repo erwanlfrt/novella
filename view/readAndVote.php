@@ -7,6 +7,7 @@
   use \model\tables\Jury;
   use \model\tables\Novella;
   use \model\tables\Prejury;
+  use \model\tables\Competition;
 
   $novellaAccess = new Novella;
   $novella = $novellaAccess->getNovella($_GET['id']);
@@ -19,6 +20,9 @@
   $competition = $data[4];
   $mailUser = $data[5];
   $anonymousID = $data[6];
+
+  $competitionAccess = new Competition;
+  $competitionData = $competitionAccess->getCompetition($id);
 
   $juryAccess = new Jury;
   $prejuryAccess = new Prejury;
@@ -56,7 +60,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Novelis - Page inexistante</title>
+    <title>Novelis - Vote</title>
     <link rel="stylesheet" href="view/style/globalStyle.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;300;500;900&display=swap');
@@ -76,19 +80,19 @@
       </div>
     </header>
     <main>
-      <h1><?php echo $title ?></h1>
-      <h3>écrit par <?php echo $anonymousID ?></h3>
-      <textarea readonly><?php echo $text ?></textarea>
-
-      <form method="post" action="?action=verify&id=<?php echo $id; ?>">
-        <input type="submit" value="<?php echo ($verified ? "signaler comme conforme" : "signaler")  ?>" />
-      </form>
-
-      <form method="post" action="?action=juryVoted<?php echo $pre; ?>&id=<?php echo $id; ?>">
-        <input name="slider" type="range" min="0" max="1000" value="<?php echo $givenPoints ?>" class="slider" id="slider">
-        <p id="sliderValue"></p>
-        <input id="voteSubmit" type="submit" value="voter" <?php echo ($verified ? "disabled" : "") ?> />
-      </form>
+      <h1>Vote du concours : <?php echo $competitionData['theme'] ?></h1>
+      <div class="read__container">
+        <h2 class="read__title"><?php echo $title ?></br><span class="read__title__min"><?php echo $anonymousID ?></span></h2>
+        <textarea class="read__textarea" readonly><?php echo $text ?></textarea>
+        <form method="post" action="?action=verify&id=<?php echo $id; ?>">
+          <input class="form__login__button" type="submit" value="<?php echo ($verified ? "Cette nouvelle est conforme" : "Signaler cette nouvelle")  ?>" />
+        </form>
+        <form class="read__note__container" method="post" action="?action=juryVoted<?php echo $pre; ?>&id=<?php echo $id; ?>">
+          <input name="slider" type="range" min="0" max="1000" value="<?php echo $givenPoints ?>" class="slider" id="slider">
+          <p class="read__note" id="sliderValue"></p>
+          <input class="form__login__submit" id="voteSubmit" type="submit" value="Soumettre mon vote" <?php echo ($verified ? "disabled" : "") ?> />
+        </form>
+      </div>
     </main>
   </body>
   <script>

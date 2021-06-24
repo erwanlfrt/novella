@@ -23,6 +23,13 @@
     }
     arsort($scores);
   }
+
+  $counter = 0;
+  foreach (array_keys($scores) as $score) {
+    if($scores[$score] > 0) {
+      $counter++;
+    }
+  } 
 ?>
 <!DOCTYPE html>
 <html>
@@ -49,6 +56,7 @@
     </header>
     <main>
       <h1>Résultats du concours : <?php echo $competition['theme'] ?></h1>
+      <?php if(count(array_keys($scores)) > 0 && $counter != 0) { ?>
       <ul class="results__container">
         <?php
           $place = 1;
@@ -70,6 +78,9 @@
           } 
         ?>
       </ul>
+      <?php } else { ?>
+        <p class="container__empty">Aucun résultat n'est disponible.</p>
+      <?php } ?>
     </main>
   </body>
 </html>
