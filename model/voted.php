@@ -96,7 +96,7 @@ if(isset($_GET['id']) && isset($_POST['slider'])) {
     $juryAccess->editJury($competition, $_SESSION['email'], $newPoints);
   }
   
-  header('Location: ?action=vote&id='.$competition); 
+  header('Location: ?action=vote'.($isPrejury ? "&pre": "").'&id='.$competition); 
 }
 
 ?>
