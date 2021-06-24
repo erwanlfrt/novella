@@ -12,7 +12,7 @@
   if(isset($_GET['id'])) {
     $novella = new Novella;
     $id = $_GET['id'];
-    $novellas = $novella->listNovellas($id);
+    
     
     $pre = "";
     
@@ -23,9 +23,11 @@
       $pre = "&pre";
       $juryAccess = new Prejury;
       $deadline = $competition['prejuryDate'];
+      $novellas = $novella->listNovellas($id);
     } else {
       $juryAccess = new Jury;
       $deadline = $competition['juryDate'];
+      $novellas = $novella->selectTopTen($id);
     }
 
     $origin = new DateTime("now");

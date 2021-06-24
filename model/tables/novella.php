@@ -138,6 +138,13 @@ class Novella {
     }
   }
 
+  public function selectTopTen($competition) {
+    $safeCompetition =  mysqli_real_escape_string($this->db, htmlspecialchars($competition));
+    $query = "SELECT id, title, score FROM Novella WHERE competition=$safeCompetition ORDER BY (scorePrejury) DESC  LIMIT 10;";
+    $exec = mysqli_query($this->db, $query);
+    return $exec;
+  }
+
 }
 
 ?>

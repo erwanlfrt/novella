@@ -43,6 +43,7 @@
     $exec = mysqli_query($this->db, $query);
     return $exec;
   }
+
  }
 
 
