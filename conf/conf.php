@@ -5,7 +5,7 @@
 define("BDD_USER", "root");
 
 /* Mot de passe de la BDD */
-define("BDD_MDP", "5up3rM0tD3p4ss3");
+define("BDD_MDP", "");
 
 /* Base de la BDD */
 define("BDD_BASE", "novella");
