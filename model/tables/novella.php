@@ -123,8 +123,15 @@ class Novella {
     $query = "SELECT title FROM Novella WHERE competition=$safeCompetition AND mailUser='$safeUser';";
     $exec = mysqli_query($this->db, $query);
 
-    if(mysqli_fetch_array($exec)['title'] != null) {
-      return true;
+    $array = mysqli_fetch_array($exec);
+    if( $array != null) {
+      if($array['title'] != null) {
+        return true;
+      }
+      else {
+        return false;
+      }
+      
     }
     else {
       return false;
