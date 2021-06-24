@@ -10,9 +10,11 @@ $arrayInput = array_unique ($arrayInput);
 $competition = new Competition;
 $id = $competition->addCompetition();
 
+
+
 if (isset($_POST['requiredWords'])) {
     $requireWord = new RequiredWord;
-    $requireWord->addAllRequiredWord($id[0], $array);
+    $requireWord->addAllRequiredWord($id[0], $arrayInput);
 }
 
 header('Location: ?action=pageOrganisateur');
