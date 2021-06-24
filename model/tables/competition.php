@@ -22,7 +22,7 @@ class Competition {
       $juryDate =  mysqli_real_escape_string($this->db, htmlspecialchars($_POST['juryDate']));
 
       if($theme !== "" && $incipit !== "" && $deadline !== "") {
-        $query = "INSERT INTO Competition (theme, incipit, creationDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$deadline');";
+        $query = "INSERT INTO Competition (theme, incipit, creationDate, prejuryDate, juryDate, deadline) VALUES ('$theme', '$incipit', curdate(), '$prejuryDate', '$juryDate', '$deadline');";
         
         $execRequest = mysqli_query($this->db, $query);
         
