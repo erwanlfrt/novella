@@ -13,8 +13,8 @@ Base de donnée:
 
 Un un dump de la base de donnée est dans le fichier novella.sql Les identifiants sont:
 
-    admin@gmail.com / Admin => role administrateur
-    user:user => role utilisateur
+    admin@gmail.com / Admin => role organisateur
+    jeanvaljean@gmail.com:jean => role utilisateur
 
 Yoann GASNIERE
 Erwan LE FORESTIER
