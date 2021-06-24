@@ -5,6 +5,10 @@ use \model\DatabaseConnection;
 
 if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_confirm']) && isset($_POST['firstname']) && isset($_POST['name'])) //if form is valid
 {
+    if($_POST['password_confirm'] !== $_POST['password']) {
+      header('Location: ?action=signup&erreur=1');
+      die();
+    }
     $db = DatabaseConnection::getDatabaseConnection(); 
     //prevent XSS attack
     $email = mysqli_real_escape_string($db,htmlspecialchars($_POST['email'])); 

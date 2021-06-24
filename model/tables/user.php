@@ -25,6 +25,7 @@ class User
       if ($email !== "") {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $emailErr = "Invalid email format";
+          header('Location: ?action=signup&erreur=1');
         } else {
           //check if user already in database
           $queryCheck = "SELECT count(*) FROM Users WHERE mail='" . $email . "'";

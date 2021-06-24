@@ -85,7 +85,7 @@ class Prejury {
   public function getCompetition($competition,$mail) {
     $safeCompetition =  mysqli_real_escape_string($this->db, htmlspecialchars($competition));
     $safeMail =  mysqli_real_escape_string($this->db, htmlspecialchars($mail));
-    $query = "SELECT competition, theme, points FROM Prejury, Competition WHERE Prejury.competition = Competition.id AND Competition.id = $safeCompetition AND deadline < curdate() AND mailUser='$safeMail'";
+    $query = "SELECT competition, theme, points FROM Prejury, Competition WHERE Prejury.competition = Competition.id AND Competition.id = $safeCompetition  AND mailUser='$safeMail'";
     $exec = mysqli_query($this->db, $query);
     return $exec;
   }

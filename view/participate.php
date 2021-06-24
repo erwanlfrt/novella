@@ -105,7 +105,7 @@
         ];
 
         //check if infinitive exist, if not we avoid to check each tenses
-        $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode=infinitive&tense=infinitive-present';
+        $url='https://lordmorgoth.net/APIs/conjugation/conjugate?verb='.$datas[0].'&mode=infinitive&tense=infinitive-present'; 
         $content = @file($url);
         if($content != false) { ?>
           <script>
