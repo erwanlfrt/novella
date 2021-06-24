@@ -1,3 +1,0 @@
-# Novella
-
-Wonderful project.
