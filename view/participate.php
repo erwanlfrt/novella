@@ -148,12 +148,9 @@
     <script>
       var verbs = [];
       conjugationArray.forEach(verb => (verbs.push(verb[0])));
-      console.log("array = ", conjugationArray);
-      console.log("verbs = ", verbs);
       var validateWords = [];
       document.getElementById("textArea").addEventListener("input", (event) => {
         validateWords = [];
-        console.log("length = ", document.getElementById("wordListView").childNodes.length);
         if(document.getElementById("wordListView").childNodes.length === 1) {
           if(document.getElementById("title").value !== "") {
                 document.getElementById("submit").disabled = false;
@@ -176,18 +173,11 @@
               child.style.display = "block";
             }
             //check verbs
-            //console.log("ça passe");
-            console.log("child.innerText = ", child.innerText);
-            console.log("condition 1 = ",verbs.includes(child.innerText.toLowerCase()) );
-            //console.log("condition 2 = ", child.style.display !== "none");
-            //console.log("condition = ", verbs.includes(child.innerText) && child.style.display !== "none")
             if(verbs.includes(child.innerText.toLowerCase()) && child.style.display !== "none") {
-              console.log("ça passe");
               conjugationArray.forEach(verb => {
                 if(verb[0] === child.innerText.toLowerCase()) {
                   //check if text area contains at least one of the conjugation
                   for(var i=0 ; i < verb.length ; i++) {
-                    console.log("on check verb = ", verb[i]);
                     if( (finalString.includes(" "+verb[i]) || finalString.includes("'"+verb[i])) && finalString.includes(verb[i]+" ") ) {
                       child.style.display = "none";
                       validateWords.push(child.innerText);
