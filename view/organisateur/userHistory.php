@@ -5,11 +5,14 @@
 
     use \model\tables\Jury;
     use \model\tables\Prejury;
+    use \model\tables\User;
 
     $jury = new Jury;
     $prejury = new Prejury;
+    $user = new User;
 
     $mail = $_GET['mail'];
+    $userInfo = $user->getUser($mail);
 
     $listCompetitionJury = $jury->listCompetitions($mail);
     $listCompetitionPrejury = $prejury->listCompetitions($mail);
@@ -17,11 +20,13 @@
     $array = array();
 
     while ($data = mysqli_fetch_array($listCompetitionJury)) {
-        $array[] = $data['theme'];
+        $array[$data['competition']]['theme'] = $data['theme'];
+        $array[$data['competition']]['id'] = $data['competition'];
     }
-
+    
     while ($data = mysqli_fetch_array($listCompetitionPrejury)) {
-        $array[] = $data['theme'];
+        $array[$data['competition']]['theme'] = $data['theme'];
+        $array[$data['competition']]['id'] = $data['competition'];
     }
 ?>
 <!DOCTYPE html>
@@ -48,12 +53,14 @@
             </div>
         </header>
         <main>
-            <h1>Historique</h1>
+            <h1 id="title">Historique de <?= $userInfo['firstname'], " ", $userInfo['name'] ?></h1>
             <ul class="container__list">
                 <?php foreach ($array as $item) { ?>
-                    <li class="container__element">
-                        <p class="container__link"><?= $item ?></p>
-                    </li>
+                    <a href="/?action=result&id=<?= $item['id'] ?>">
+                        <li class="container__element">
+                            <p class="container__link"><?= $item['theme'] ?></p>
+                        </li>
+                    </a>
                 <?php } ?>
             </ul>
         </main>
